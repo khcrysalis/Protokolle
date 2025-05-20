@@ -25,6 +25,8 @@ extension SYStreamViewController {
 	}
 	
 	func dataSourceApply(snapshot: StepDataSourceSnapshot) {
+		// https://stackoverflow.com/questions/73242482/uicollectionview-snapshot-takes-too-long-to-re-apply
+		// whyyyyy is this so slowwww
 		dataSource.applySnapshotUsingReloadData(snapshot) {
 			self.subtitleLabel.text = "\(self.numberFormatter.string(from: snapshot.numberOfItems as NSNumber) ?? snapshot.numberOfItems.description) Messages"
 		}
