@@ -6,10 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		339C38B62DD544D800545BF4 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 339C38B52DD544D800545BF4 /* MobileCoreServices.framework */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
 		339C38B52DD544D800545BF4 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		33F7C1652DD51529003FF92B /* syslog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = syslog.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,7 +37,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				339C38B62DD544D800545BF4 /* MobileCoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,10 +15,11 @@ class SYContainerViewController: UIViewController {
 	var isExpanded = false
 	
 	private var menuWidth: CGFloat {
-		view.bounds.width * 0.87
+		view.bounds.width * (UIDevice.current.userInterfaceIdiom == .pad ? 0.33 : 0.87)
 	}
 	
 	private var menuLeadingConstraint: NSLayoutConstraint!
+	private var menuWidthConstraint: NSLayoutConstraint!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -58,6 +59,7 @@ class SYContainerViewController: UIViewController {
 		menuController.view.translatesAutoresizingMaskIntoConstraints = false
 		
 		menuLeadingConstraint = menuController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -menuWidth)
+		menuWidthConstraint = menuController.view.widthAnchor.constraint(equalToConstant: menuWidth)
 		
 		let borderView = UIView()
 		borderView.backgroundColor = .systemGray4.withAlphaComponent(0.3)
@@ -66,7 +68,7 @@ class SYContainerViewController: UIViewController {
 		
 		NSLayoutConstraint.activate([
 			menuLeadingConstraint,
-			menuController.view.widthAnchor.constraint(equalToConstant: menuWidth),
+			menuWidthConstraint,
 			menuController.view.topAnchor.constraint(equalTo: view.topAnchor),
 			menuController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 			
@@ -75,6 +77,29 @@ class SYContainerViewController: UIViewController {
 			borderView.bottomAnchor.constraint(equalTo: menuController.view.bottomAnchor),
 			borderView.trailingAnchor.constraint(equalTo: menuController.view.trailingAnchor)
 		])
+	}
+	
+	override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+		super.viewWillTransition(to: size, with: coordinator)
+		
+		let newMenuWidth = size.width * (UIDevice.current.userInterfaceIdiom == .pad ? 0.33 : 0.87)
+		
+		coordinator.animate(alongsideTransition: { [weak self] _ in
+			guard let self = self else { return }
+			
+			// Update the width constraint
+			self.menuWidthConstraint.constant = newMenuWidth
+			
+			if self.isExpanded {
+				self.menuLeadingConstraint.constant = 0
+				self.centerController.view.transform = CGAffineTransform(translationX: newMenuWidth, y: 0)
+			} else {
+				self.menuLeadingConstraint.constant = -newMenuWidth
+				self.centerController.view.transform = .identity
+			}
+			
+			self.view.layoutIfNeeded()
+		})
 	}
 	
 	func configureGestures() {
@@ -103,23 +128,24 @@ class SYContainerViewController: UIViewController {
 	@objc func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
 		let translation = gesture.translation(in: view)
 		let velocity = gesture.velocity(in: view)
+		let currentMenuWidth = menuWidth
 		
 		switch gesture.state {
 		case .began, .changed:
 			var dragAmount = translation.x
-			if isExpanded { dragAmount = menuWidth + translation.x }
-			dragAmount = max(0, min(menuWidth, dragAmount))
-			let progress = dragAmount / menuWidth
+			if isExpanded { dragAmount = currentMenuWidth + translation.x }
+			dragAmount = max(0, min(currentMenuWidth, dragAmount))
+			let progress = dragAmount / currentMenuWidth
 			
-			menuLeadingConstraint.constant = -menuWidth + dragAmount
+			menuLeadingConstraint.constant = -currentMenuWidth + dragAmount
 			centerController.view.transform = CGAffineTransform(translationX: dragAmount, y: 0)
 			centerController.view.alpha = 1.0 - (0.7 * progress)
 			
 			view.layoutIfNeeded()
 		case .ended, .cancelled:
 			let currentProgress = isExpanded ?
-			1.0 + translation.x / menuWidth :
-			translation.x / menuWidth
+			1.0 + translation.x / currentMenuWidth :
+			translation.x / currentMenuWidth
 			
 			let positionThreshold: CGFloat = 0.5
 			let velocityThreshold: CGFloat = 500
@@ -150,6 +176,9 @@ class SYContainerViewController: UIViewController {
 		let generator = UIImpactFeedbackGenerator(style: .soft)
 		generator.prepare()
 		
+		// Get current menu width
+		let currentMenuWidth = menuWidth
+		
 		if shouldExpand {
 			menuLeadingConstraint.constant = 0
 			
@@ -160,14 +189,14 @@ class SYContainerViewController: UIViewController {
 				initialSpringVelocity: 0,
 				options: .curveEaseInOut,
 				animations: {
-					self.centerController.view.transform = CGAffineTransform(translationX: self.menuWidth, y: 0)
+					self.centerController.view.transform = CGAffineTransform(translationX: currentMenuWidth, y: 0)
 					self.centerController.view.alpha = 0.3
 					generator.impactOccurred()
 					self.view.layoutIfNeeded()
 				}
 			)
 		} else {
-			menuLeadingConstraint.constant = -menuWidth
+			menuLeadingConstraint.constant = -currentMenuWidth
 			
 			UIView.animate(
 				withDuration: 0.5,
