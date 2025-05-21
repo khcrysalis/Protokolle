@@ -44,15 +44,15 @@ class SystemLogManager: NSObject {
 	
 	func connect() async throws {
 		guard FileManager.default.fileExists(atPath: HeartbeatManager.pairingFile()) else {
-			throw SYSystemLogError.noPairingFile
+			throw SYSystemLogError.missingPairing
 		}
 		
 		guard self.heartbeat.checkSocketConnection().isConnected else {
-			throw SYSystemLogError.deviceNotConnected
+			throw SYSystemLogError.missingPairing
 		}
 		
 		guard (self.heartbeat.provider != nil) else {
-			throw SYSystemLogError.noProviderAvailable
+			throw SYSystemLogError.missingPairing
 		}
 	}
 	
@@ -150,10 +150,17 @@ class SystemLogManager: NSObject {
 	}
 	
 	// Add error enum at the top of the file
-	enum SYSystemLogError: Error {
-		case noPairingFile
-		case deviceNotConnected
-		case noProviderAvailable
+	enum SYSystemLogError: Error, LocalizedError {
+		case missingPairing
 		case failedToConnect
+		
+		var errorDescription: String? {
+			switch self {
+			case .missingPairing:
+				"Unable to connect to TCP. Make sure you have loopback VPN enabled and you are on WiFi or Airplane mode."
+			case .failedToConnect:
+				"Unable to connect to relay."
+			}
+		}
 	}
 }

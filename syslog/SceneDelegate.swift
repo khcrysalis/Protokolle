@@ -14,7 +14,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		guard let windowScene = scene as? UIWindowScene else { return }
 		
 		let window = UIWindow(windowScene: windowScene)
-		let controller = SYContainerViewController()
+//		let controller = SYStreamDetailContainerViewController()
+		let controller = SYMenuContainerViewController()
 
 		window.tintColor = .systemGreen
 		window.rootViewController = controller

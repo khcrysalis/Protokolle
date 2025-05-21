@@ -12,14 +12,36 @@ import UIKit.UIApplication
 extension SYStreamViewController {
 	@objc func stopOrStartStream() {
 		let isStreaming = logManager.isStreaming
-		playButton.updateImage(systemImageName: !isStreaming ? "pause.circle.fill" : "play.circle.fill", highlighted: !isStreaming)
+		
+		playButton.updateImage(
+			systemImageName: isStreaming ? "play.circle.fill" : "pause.circle.fill",
+			highlighted: !isStreaming
+		)
 		
 		Task { [weak self] in
 			guard let self else { return }
-			if self.logManager.isStreaming {
+			
+			if isStreaming {
 				self.logManager.stop()
 			} else {
-				try await self.logManager.os_trace_relay()
+				do {
+					try await self.logManager.os_trace_relay()
+				} catch {
+					await MainActor.run {
+						self.playButton.updateImage(
+							systemImageName: "play.circle.fill",
+							highlighted: false
+						)
+						
+						UIAlertController.showAlertWithOk(
+							title: "Stream",
+							message: error.localizedDescription,
+							action: {
+								HeartbeatManager.shared.start(true)
+							}
+						)
+					}
+				}
 			}
 		}
 	}
@@ -27,6 +49,7 @@ extension SYStreamViewController {
 	func dataSourceApply(snapshot: StepDataSourceSnapshot) {
 		// https://stackoverflow.com/questions/73242482/uicollectionview-snapshot-takes-too-long-to-re-apply
 		// whyyyyy is this so slowwww
+		// this may crash lol
 		dataSource.applySnapshotUsingReloadData(snapshot) {
 			let itemCount = snapshot.numberOfItems
 			let formattedCount = self.numberFormatter.string(from: NSNumber(value: itemCount)) ?? "\(itemCount)"

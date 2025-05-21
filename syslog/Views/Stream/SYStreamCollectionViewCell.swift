@@ -50,6 +50,20 @@ class SYStreamCollectionViewCell: UICollectionViewCell {
 		return Self.reuseIdentifier
 	}
 	
+	override var isSelected: Bool {
+		didSet {
+			updateSelectionAppearance()
+		}
+	}
+	
+	private func updateSelectionAppearance() {
+		if isSelected {
+			backgroundColor = .tintColor.withAlphaComponent(0.3)
+		} else {
+			backgroundColor = .systemGray5
+		}
+	}
+	
 	private func setup() {
 		backgroundColor = .systemGray5
 		clipsToBounds = true

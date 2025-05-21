@@ -63,7 +63,7 @@ class SYStreamViewController: UICollectionViewController {
 	
 	let searchController = UISearchController(searchResultsController: nil)
 	var automaticallyScrollToBottom: Bool = true
-	var delegate: SYContainerViewDelegate?
+	var menuDelegate: SYMenuContainerViewDelegate?
 	
 	var batch: [LogEntryModel] = []
 	var buffer: Int = UserDefaults.standard.integer(forKey: "SY.bufferLimit")
@@ -84,6 +84,7 @@ class SYStreamViewController: UICollectionViewController {
 	
 	func setupCollectionView() {
 		collectionView.isPrefetchingEnabled = true
+		collectionView.allowsSelection = true
 		collectionView.backgroundColor = .secondarySystemBackground
 		collectionView.register(
 			SYStreamCollectionViewCell.self,
@@ -97,8 +98,8 @@ class SYStreamViewController: UICollectionViewController {
 		navigationItem.titleView = stack
 		
 		let settingsButton = UIBarButtonItem(systemImageName: "gear.circle.fill", target: self, action: #selector(settingsAction))
-		navigationItem.leftBarButtonItem = settingsButton
-
+		navigationItem.leftBarButtonItems = [settingsButton]
+		
 		searchController.searchBar.enablesReturnKeyAutomatically = false
 		navigationItem.searchController = searchController
 	}
@@ -124,6 +125,15 @@ class SYStreamViewController: UICollectionViewController {
 		}
 		var snapshot = dataSource.snapshot()
 		snapshot.appendSections([0])
+		#if DEBUG
+		let items = [
+			LogEntryModel(),
+			LogEntryModel(),
+			LogEntryModel()
+		]
+		snapshot.appendItems(items)
+		#endif
+		
 		dataSourceApply(snapshot: snapshot)
 	}
 	
@@ -148,7 +158,7 @@ class SYStreamViewController: UICollectionViewController {
 	// MARK: Actions
 	
 	@objc func settingsAction() {
-		delegate?.handleMenuToggle()
+		menuDelegate?.handleMenuToggle()
 	}
 	
 	@objc func searchAction() {
@@ -168,6 +178,18 @@ class SYStreamViewController: UICollectionViewController {
 
 // MARK: - Class extension
 extension SYStreamViewController {
+	func presentEntryController(using controller: UIViewController) {
+		let controller = UINavigationController(rootViewController: controller)
+		
+		if let sheet = controller.sheetPresentationController {
+			sheet.detents = [.medium(), .large()]
+			sheet.preferredCornerRadius = 20
+			sheet.prefersGrabberVisible = true
+		}
+		
+		present(controller, animated: true)
+	}
+	
 	override func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
 		downButton.isEnabled = true
 		automaticallyScrollToBottom = false
@@ -179,15 +201,29 @@ extension SYStreamViewController {
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-		guard let entry = dataSource.itemIdentifier(for: indexPath) else {
-			return nil
-		}
-		return UIContextMenuConfiguration(identifier: indexPath as NSCopying, previewProvider: { SYStreamDetailViewController(with: entry) }) { _ in
-			let favorite = UIAction(title: "Favorite", image: UIImage(systemName: "star")) { action in
-				print("Favorited item at \(indexPath)")
+		guard let entry = dataSource.itemIdentifier(for: indexPath) else { return nil }
+		
+		return UIContextMenuConfiguration(
+			identifier: indexPath as NSCopying,
+			previewProvider: {
+				SYStreamDetailViewController(with: entry)
+			}
+		) { _ in
+			let favorite = UIAction(title: "Copy Process", image: UIImage(systemName: "document.on.clipboard")) { action in
+				UIPasteboard.general.string = entry.processName
 			}
 			
-			return UIMenu(title: "Options", children: [favorite])
+			return UIMenu(children: [favorite])
+		}
+	}
+		
+	override func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: any UIContextMenuInteractionCommitAnimating) {
+		guard let controller = animator.previewViewController as? SYStreamDetailViewController else { return }
+		
+		animator.addCompletion {
+			if UIDevice.current.userInterfaceIdiom == .phone {
+				self.presentEntryController(using: controller)
+			}
 		}
 	}
 	
@@ -195,28 +231,27 @@ extension SYStreamViewController {
 		guard let entry = dataSource.itemIdentifier(for: indexPath) else { return }
 		
 		collectionView.deselectItem(at: indexPath, animated: true)
-		
-		let detailNavigationController = UINavigationController(rootViewController: SYStreamDetailViewController(with: entry))
-		
-		if let sheet = detailNavigationController.sheetPresentationController {
-			sheet.detents = [.medium(), .large()]
-			sheet.preferredCornerRadius = 20
-			sheet.prefersGrabberVisible = true
-		}
-		
-		present(detailNavigationController, animated: true)
+		self.presentEntryController(using: SYStreamDetailViewController(with: entry))
 	}
 	
 	@available(iOS 17.0, *)
 	override func updateContentUnavailableConfiguration(using state: UIContentUnavailableConfigurationState) {
 		var config: UIContentUnavailableConfiguration?
 		if dataSource.snapshot().numberOfItems == 0 {
+			var buttonConfiguration = UIButton.Configuration.bordered()
+			buttonConfiguration.cornerStyle = .capsule
+			buttonConfiguration.title = "Start Streaming"
+			buttonConfiguration.baseBackgroundColor = .quaternarySystemFill
+			
 			var empty = UIContentUnavailableConfiguration.empty()
 			empty.background.backgroundColor = .systemBackground
 			empty.image = UIImage(systemName: "internaldrive")
 			empty.text = "No Messages"
-			empty.secondaryText = "Start streaming messages by pressing the ▶ button"
+			empty.secondaryText = "Streaming log messages will impact the apps performance."
 			empty.background = .listSidebarCell()
+			empty.button = buttonConfiguration
+			empty.buttonProperties.primaryAction = UIAction { _ in self.stopOrStartStream() }
+			
 			config = empty
 			contentUnavailableConfiguration = config
 			return
