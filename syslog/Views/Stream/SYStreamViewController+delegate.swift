@@ -5,6 +5,8 @@
 //  Created by samara on 20.05.2025.
 //
 
+import UIKit
+
 // MARK: - Class extension
 extension SYStreamViewController: SystemLogManagerDelegate {
 	func activityStream(didRecieveEntry entry: LogEntryModel) {

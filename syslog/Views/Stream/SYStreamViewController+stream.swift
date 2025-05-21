@@ -28,7 +28,9 @@ extension SYStreamViewController {
 		// https://stackoverflow.com/questions/73242482/uicollectionview-snapshot-takes-too-long-to-re-apply
 		// whyyyyy is this so slowwww
 		dataSource.applySnapshotUsingReloadData(snapshot) {
-			self.subtitleLabel.text = "\(self.numberFormatter.string(from: snapshot.numberOfItems as NSNumber) ?? snapshot.numberOfItems.description) Messages"
+			let itemCount = snapshot.numberOfItems
+			let formattedCount = self.numberFormatter.string(from: NSNumber(value: itemCount)) ?? "\(itemCount)"
+			self.subtitleLabel.text = "\(formattedCount) Messages"
 		}
 	}
 	
@@ -39,12 +41,12 @@ extension SYStreamViewController {
 			// let's stop here, keep the batch for when we do want
 			// to display it
 			guard
-				logManager.isStreaming == true,
+				logManager.isStreaming,
 				UIApplication.shared.applicationState != .background
 			else {
 				return
 			}
-			
+						
 			addBatch()
 			
 			if #available(iOS 17.0, *) {
@@ -59,13 +61,23 @@ extension SYStreamViewController {
 	
 	func addBatch() {
 		guard !batch.isEmpty else { return }
-
+		
 		var snapshot = dataSource.snapshot()
-
+		let currentCount = snapshot.numberOfItems
+		let newTotalCount = currentCount + batch.count
+		
+		if newTotalCount > buffer {
+			let overflowCount = min(batch.count, currentCount)
+			
+			let itemsToRemove = snapshot.itemIdentifiers.prefix(overflowCount)
+			snapshot.deleteItems(Array(itemsToRemove))
+		}
+		
 		snapshot.appendItems(batch)
 		batch = []
 		dataSourceApply(snapshot: snapshot)
 	}
+
 	
 	@objc func clearAll() {
 		var snapshot: StepDataSourceSnapshot = .init()

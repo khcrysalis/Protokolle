@@ -9,30 +9,23 @@ import SwiftUI
 
 struct SYSettingsView: View {
 	@AppStorage("SY.refreshSpeed") var refreshSpeed: Double = 1.0
-	@AppStorage("SY.bufferLimit") private var bufferLimit: Int = 75000
+	@AppStorage("SY.bufferLimit") var bufferLimit: Int = 75000
 	
-	private let refreshOptions = 1.0...10
-	private let bufferOptions = Array(stride(from: 50_000, through: 150_000, by: 25_000))
+	private let _refreshOptions = 1.0...10
+	private let _bufferOptions = Array(stride(from: 50_000, through: 150_000, by: 25_000))
 	
-	private let donationsUrl = "https://github.com/sponsors/khcrysalis"
-	private let githubUrl = "https://github.com/khcrysalis/Feather"
+	private let _donationsUrl = "https://github.com/sponsors/khcrysalis"
+	private let _githubUrl = "https://github.com/khcrysalis/Feather"
 	
 	var body: some View {
 		NavigationStack {
 			Form {
 				_general()
 				
-				Section {
-					Toggle("Messages in Background", isOn: .constant(true))
-						.disabled(true)
-				} header: {
-					Text("Background")
-				} footer: {
-					Text("We need Always-On location Authorization in order to enable Background Mode")
-				}
-				
 				Section("Pairing") {
-					Text("Tunnel & Pairing")
+					NavigationLink("Tunnel & Pairing") {
+						TunnelView()
+					}
 				}
 				
 				_feedback()
@@ -44,6 +37,11 @@ struct SYSettingsView: View {
 			.onChange(of: refreshSpeed) { _ in
 				NotificationCenter.default.post(
 					Notification(name: .refreshSpeedDidChange, object: refreshSpeed)
+				)
+			}
+			.onChange(of: bufferLimit) { _ in
+				NotificationCenter.default.post(
+					Notification(name: .bufferLimitDidChange, object: bufferLimit)
 				)
 			}
 		}
@@ -73,11 +71,11 @@ extension SYSettingsView {
 							.font(.subheadline)
 					}
 				}
-				Slider(value: $refreshSpeed, in: refreshOptions, step: refreshOptions.lowerBound)
+				Slider(value: $refreshSpeed, in: _refreshOptions, step: _refreshOptions.lowerBound)
 			}
 			
 			Picker("Message Threshold", selection: $bufferLimit) {
-				ForEach(bufferOptions, id: \.self) { value in
+				ForEach(_bufferOptions, id: \.self) { value in
 					Text("\(value.formatted())").tag(value)
 				}
 			}
@@ -89,7 +87,7 @@ extension SYSettingsView {
 			"""
 			Refresh rate will change how often the messages list will refresh at a time.
 			
-			Message threshold is how many messages you can have at one instance at a time to avoid any excessive RAM usage.
+			When the message threshold is succeeded and to avoid any excessive RAM usage we will periodically start deleting previous messages.
 			"""
 			)
 		}
@@ -100,7 +98,7 @@ extension SYSettingsView {
 		Section {
 			NavigationLink("About", destination: EmptyView())
 			Button("GitHub Repository", systemImage: "safari") {
-				UIApplication.open(githubUrl)
+				UIApplication.open(_githubUrl)
 			}
 		}
 	}

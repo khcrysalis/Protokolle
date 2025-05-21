@@ -11,6 +11,8 @@ class SYStreamCollectionViewCell: UICollectionViewCell {
 	let padding: CGFloat = 14
 	let cornerRadius: CGFloat = 14
 	
+	static let reuseIdentifier = "MessageCell"
+	
 	let nameLabel: UILabel = {
 		let nameLabel = UILabel()
 		nameLabel.font = .systemFont(ofSize: UIFont.preferredFont(forTextStyle: .headline).pointSize, weight: .semibold)
@@ -42,6 +44,10 @@ class SYStreamCollectionViewCell: UICollectionViewCell {
 	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+	
+	override var reuseIdentifier: String? {
+		return Self.reuseIdentifier
 	}
 	
 	private func setup() {

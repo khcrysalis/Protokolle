@@ -9,5 +9,7 @@ import Foundation.NSNotification
 
 extension Notification.Name {
 	static let heartbeat = Notification.Name("SY.heartBeat")
+	
 	static let refreshSpeedDidChange = Notification.Name("SY.refreshSpeedDidChange")
+	static let bufferLimitDidChange = Notification.Name("SY.bufferLimitDidChange")
 }

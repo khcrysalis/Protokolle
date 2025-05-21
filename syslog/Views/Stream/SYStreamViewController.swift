@@ -66,6 +66,7 @@ class SYStreamViewController: UICollectionViewController {
 	var delegate: SYContainerViewDelegate?
 	
 	var batch: [LogEntryModel] = []
+	var buffer: Int = UserDefaults.standard.integer(forKey: "SY.bufferLimit")
 	
 	lazy var timer = makeTimer()
 		
@@ -84,7 +85,10 @@ class SYStreamViewController: UICollectionViewController {
 	func setupCollectionView() {
 		collectionView.isPrefetchingEnabled = true
 		collectionView.backgroundColor = .secondarySystemBackground
-		collectionView.register(SYStreamCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: SYStreamCollectionViewCell.self))
+		collectionView.register(
+			SYStreamCollectionViewCell.self,
+			forCellWithReuseIdentifier: SYStreamCollectionViewCell.reuseIdentifier
+		)
 	}
 	
 	func setupNavigation() {
@@ -127,10 +131,17 @@ class SYStreamViewController: UICollectionViewController {
 		let _ = NotificationCenter.addObserver(
 			name: .refreshSpeedDidChange,
 			castTo: TimeInterval.self
-		) { newTimerInterval in
+		) { newValue in
 			self.timer.invalidate()
-			self.timer = self.makeTimer(interval: newTimerInterval)
+			self.timer = self.makeTimer(interval: newValue)
 			RunLoop.main.add(self.timer, forMode: .common)
+		}
+		
+		let _ = NotificationCenter.addObserver(
+			name: .bufferLimitDidChange,
+			castTo: Int.self
+		) { newValue in
+			self.buffer = newValue
 		}
 	}
 	
