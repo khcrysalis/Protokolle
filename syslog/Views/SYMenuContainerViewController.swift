@@ -15,7 +15,7 @@ class SYMenuContainerViewController: UIViewController {
 	var isExpanded = false
 	
 	private var menuWidth: CGFloat {
-		view.bounds.width * (UIDevice.current.userInterfaceIdiom == .pad ? 0.33 : 0.87)
+		view.bounds.width * (traitCollection.horizontalSizeClass == .regular ? 0.33 : 0.87)
 	}
 	
 	private var menuLeadingConstraint: NSLayoutConstraint!
@@ -82,12 +82,12 @@ class SYMenuContainerViewController: UIViewController {
 	override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
 		super.viewWillTransition(to: size, with: coordinator)
 		
-		let newMenuWidth = size.width * (UIDevice.current.userInterfaceIdiom == .pad ? 0.33 : 0.87)
-		
 		coordinator.animate(alongsideTransition: { [weak self] _ in
 			guard let self = self else { return }
 			
-			// Update the width constraint
+			let newSizeClass = self.traitCollection.horizontalSizeClass
+			let newMenuWidth = size.width * (newSizeClass == .regular ? 0.33 : 0.87)
+			
 			self.menuWidthConstraint.constant = newMenuWidth
 			
 			if self.isExpanded {
@@ -101,6 +101,7 @@ class SYMenuContainerViewController: UIViewController {
 			self.view.layoutIfNeeded()
 		})
 	}
+
 	
 	func configureGestures() {
 		let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
