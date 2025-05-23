@@ -8,26 +8,26 @@
 
 /* Begin PBXFileReference section */
 		339C38B52DD544D800545BF4 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		33F7C1652DD51529003FF92B /* syslog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = syslog.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		33F7C1652DD51529003FF92B /* Protokolle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Protokolle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		33F7C1772DD5152C003FF92B /* Exceptions for "syslog" folder in "syslog" target */ = {
+		33F7C1772DD5152C003FF92B /* Exceptions for "Protokolle" folder in "Protokolle" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Resources/Info.plist,
 			);
-			target = 33F7C1642DD51529003FF92B /* syslog */;
+			target = 33F7C1642DD51529003FF92B /* Protokolle */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		33F7C1672DD51529003FF92B /* syslog */ = {
+		33F7C1672DD51529003FF92B /* Protokolle */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				33F7C1772DD5152C003FF92B /* Exceptions for "syslog" folder in "syslog" target */,
+				33F7C1772DD5152C003FF92B /* Exceptions for "Protokolle" folder in "Protokolle" target */,
 			);
-			path = syslog;
+			path = Protokolle;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -54,7 +54,7 @@
 		33F7C15C2DD51529003FF92B = {
 			isa = PBXGroup;
 			children = (
-				33F7C1672DD51529003FF92B /* syslog */,
+				33F7C1672DD51529003FF92B /* Protokolle */,
 				339C38B42DD544D700545BF4 /* Frameworks */,
 				33F7C1662DD51529003FF92B /* Products */,
 			);
@@ -63,7 +63,7 @@
 		33F7C1662DD51529003FF92B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				33F7C1652DD51529003FF92B /* syslog.app */,
+				33F7C1652DD51529003FF92B /* Protokolle.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -71,9 +71,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		33F7C1642DD51529003FF92B /* syslog */ = {
+		33F7C1642DD51529003FF92B /* Protokolle */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 33F7C1782DD5152C003FF92B /* Build configuration list for PBXNativeTarget "syslog" */;
+			buildConfigurationList = 33F7C1782DD5152C003FF92B /* Build configuration list for PBXNativeTarget "Protokolle" */;
 			buildPhases = (
 				33F7C1612DD51529003FF92B /* Sources */,
 				33F7C1622DD51529003FF92B /* Frameworks */,
@@ -84,13 +84,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				33F7C1672DD51529003FF92B /* syslog */,
+				33F7C1672DD51529003FF92B /* Protokolle */,
 			);
-			name = syslog;
+			name = Protokolle;
 			packageProductDependencies = (
 			);
 			productName = syslog;
-			productReference = 33F7C1652DD51529003FF92B /* syslog.app */;
+			productReference = 33F7C1652DD51529003FF92B /* Protokolle.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -109,7 +109,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 33F7C1602DD51529003FF92B /* Build configuration list for PBXProject "syslog" */;
+			buildConfigurationList = 33F7C1602DD51529003FF92B /* Build configuration list for PBXProject "Protokolle" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -123,7 +123,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				33F7C1642DD51529003FF92B /* syslog */,
+				33F7C1642DD51529003FF92B /* Protokolle */,
 			);
 		};
 /* End PBXProject section */
@@ -155,14 +155,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "syslog/Supporting Files/syslog.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Protokolle/Supporting Files/syslog.entitlements";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = syslog/Resources/Info.plist;
+				INFOPLIST_FILE = Protokolle/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Protokolle;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -178,6 +178,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/syslog/Resources/idevice",
+					"$(PROJECT_DIR)/Protokolle/Resources/idevice",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = thewonderofyou.syslog;
@@ -185,7 +186,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "syslog/Supporting Files/syslog-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Protokolle/Supporting Files/syslog-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -198,14 +199,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "syslog/Supporting Files/syslog.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Protokolle/Supporting Files/syslog.entitlements";
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEPLOYMENT_POSTPROCESSING = YES;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = syslog/Resources/Info.plist;
+				INFOPLIST_FILE = Protokolle/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Protokolle;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -221,6 +222,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/syslog/Resources/idevice",
+					"$(PROJECT_DIR)/Protokolle/Resources/idevice",
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = thewonderofyou.syslog;
@@ -228,7 +230,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIPFLAGS = "-rSTx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OBJC_BRIDGING_HEADER = "syslog/Supporting Files/syslog-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Protokolle/Supporting Files/syslog-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -356,7 +358,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		33F7C1602DD51529003FF92B /* Build configuration list for PBXProject "syslog" */ = {
+		33F7C1602DD51529003FF92B /* Build configuration list for PBXProject "Protokolle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				33F7C17B2DD5152C003FF92B /* Debug */,
@@ -365,7 +367,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		33F7C1782DD5152C003FF92B /* Build configuration list for PBXNativeTarget "syslog" */ = {
+		33F7C1782DD5152C003FF92B /* Build configuration list for PBXNativeTarget "Protokolle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				33F7C1792DD5152C003FF92B /* Debug */,
