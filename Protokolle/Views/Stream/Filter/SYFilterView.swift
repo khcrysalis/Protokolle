@@ -20,9 +20,9 @@ struct SYFilterView: View {
 	// MARK: Body
 	
 	var body: some View {
-		SYNavigationView("Filter", displayMode: .inline) {
+		SYNavigationView(.localized("Filter"), displayMode: .inline) {
 			Form {
-				Section { Toggle("Enabled", isOn: $entryFilter.isEnabled) }
+				Section { Toggle(.localized("Enabled"), isOn: $entryFilter.isEnabled) }
 				
 				Group {
 					_add()
@@ -32,12 +32,12 @@ struct SYFilterView: View {
 			}
 			.toolbar {
 				ToolbarItem(placement: .cancellationAction) {
-					Button("Cancel") {
+					Button(.localized("Cancel")) {
 						dismiss()
 					}
 				}
 				ToolbarItem(placement: .confirmationAction) {
-					Button("Save") {
+					Button(.localized("Save")) {
 						Preferences.entryFilter = entryFilter
 						dismiss()
 					}
@@ -67,24 +67,24 @@ extension SYFilterView {
 	@ViewBuilder
 	private func _add() -> some View {
 		Section {
-			Button("New Filter") {
+			Button(.localized("New Filter")) {
 				let blankFilter = EntryFilter.CustomFilter(type: .any, mode: .contains)
 				entryFilter.customFilters.append(blankFilter)
 			}
 			
 			ForEach($entryFilter.customFilters, id: \.id) { $filter in
 				HStack {
-					TextField("Value", text: $filter.value)
+					TextField(.localized("Value"), text: $filter.value)
 						.frame(maxWidth: .infinity, alignment: .leading)
 					
 					Group {
-						Picker("Field", selection: $filter.type) {
+						Picker(.localized("Field"), selection: $filter.type) {
 							ForEach(EntryFilter.AdditionalFilterType.allCases, id: \.self) { type in
 								Text(type.rawValue.capitalized)
 							}
 						}
 						
-						Picker("Mode", selection: $filter.mode) {
+						Picker(.localized("Mode"), selection: $filter.mode) {
 							ForEach(TextFilter.Mode.allCases, id: \.self) { mode in
 								Text(mode.description)
 							}
@@ -97,15 +97,15 @@ extension SYFilterView {
 				entryFilter.customFilters.remove(atOffsets: indexSet)
 			}
 		} header: {
-			Text("Filters")
+			Text(.localized("Filters"))
 		} footer: {
-			Text("Filters are very specific, please be wary that some may conflict and lead to unexpected results (i.e. combining 'Doesn't Contain' with 'Contains'")
+			Text(.localized("Filters are very specific, please be wary that some may conflict and lead to unexpected results (i.e. combining 'Doesn't Contain' with 'Contains'"))
 		}
 	}
 	
 	@ViewBuilder
 	private func _allowed() -> some View {
-		Section("Allowed Types") {
+		Section(.localized("Allowed Types")) {
 			ForEach(LogMessageEventModel.allCases, id: \.rawValue) { model in
 				Toggle(model.displayText, isOn: binding(for: model))
 			}

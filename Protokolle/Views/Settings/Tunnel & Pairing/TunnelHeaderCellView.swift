@@ -12,7 +12,7 @@ struct SYTunnelHeaderView: View {
 	
 	var body: some View {
 		HStack {
-			Text("Status")
+			Text(.localized("Status"))
 			Spacer()
 			TunnelPulseRing(lastHeartbeat: $lastHeartbeatTime)
 		}

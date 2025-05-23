@@ -27,7 +27,7 @@ extension SYStreamViewController {
 						)
 						
 						UIAlertController.showAlertWithOk(
-							title: "Stream",
+							title: .localized("Stream"),
 							message: error.localizedDescription,
 							action: {
 								HeartbeatManager.shared.start(true)
@@ -44,8 +44,7 @@ extension SYStreamViewController {
 		// whyyyyy is this so slowwww
 		// this may crash lol
 		dataSource.applySnapshotUsingReloadData(snapshot) {
-			let itemCount = snapshot.numberOfItems
-			let label =  "\(String(itemCount).formattedAsDecimal() ?? "0") Messages"
+			let label: String = .localized("%lld Messages", arguments: snapshot.numberOfItems)
 			self.subtitleLabel.text = label
 			UIApplication.sceneDelegate?.currentScene?.title = label
 		}
@@ -87,8 +86,8 @@ extension SYStreamViewController {
 			
 			if !userInformedAboutThreshold {
 				UIAlertController.showAlertWithOk(
-					title: "You've reached the threshold",
-					message: "To save on performance, we've automatically started clearing logs from the start of the session."
+					title: .localized("You've reached the threshold"),
+					message: .localized("To save on performance, we've automatically started clearing logs from the start of the session.")
 				)
 				
 				logManager.isStreaming = false

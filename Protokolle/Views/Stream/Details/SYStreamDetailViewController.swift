@@ -49,28 +49,28 @@ class SYStreamDetailViewController: UICollectionViewController {
 		let font = UIFont.monospacedSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize, weight: .regular)
 		
 		data = [
-			SYCollectionItem(key: "Message", subItems: [
-				SYCollectionItem(key: entry.message ?? "N/A", font: font)
+			SYCollectionItem(key: .localized("Message"), subItems: [
+				SYCollectionItem(key: entry.message ?? "", font: font)
 			]),
-			SYCollectionItem(key: "Process", subItems: [
-				SYCollectionItem(key: "Name", value: entry.processName),
-				SYCollectionItem(key: "PID", value: entry.pid.description),
-				SYCollectionItem(key: "Path", value: entry.processPath ?? "N/A")
+			SYCollectionItem(key: .localized("Process"), subItems: [
+				SYCollectionItem(key: .localized("Name"), value: entry.processName),
+				SYCollectionItem(key: .localized("PID"), value: entry.pid.description),
+				SYCollectionItem(key: .localized("Path"), value: entry.processPath ?? "")
 			]),
-			SYCollectionItem(key: "Sender", subItems: [
-				SYCollectionItem(key: "Name", value: entry.senderName ?? "N/A"),
-				SYCollectionItem(key: "Path", value: entry.senderPath ?? "N/A")
+			SYCollectionItem(key: .localized("Sender"), subItems: [
+				SYCollectionItem(key: .localized("Name"), value: entry.senderName ?? ""),
+				SYCollectionItem(key: .localized("Path"), value: entry.senderPath ?? "")
 			]),
-			SYCollectionItem(key: "Date", subItems: [
-				SYCollectionItem(key: "Date", value: entry.timestamp.formattedDate()),
-				SYCollectionItem(key: "Timestamp (UNIX Time)", value: entry.timestamp.description),
+			SYCollectionItem(key: .localized("Date"), subItems: [
+				SYCollectionItem(key: .localized("Date"), value: entry.timestamp.formattedDate()),
+				SYCollectionItem(key: .localized("Timestamp (UNIX Time)"), value: entry.timestamp.description),
 			]),
-			SYCollectionItem(key: "Category & Subsystem", subItems: [
-				SYCollectionItem(key: "Category", value: entry.label?.category ?? "N/A"),
-				SYCollectionItem(key: "Subsystem", value: entry.label?.subsystem ?? "N/A")
+			SYCollectionItem(key: .localized("Category & Subsystem"), subItems: [
+				SYCollectionItem(key: .localized("Category"), value: entry.label?.category ?? ""),
+				SYCollectionItem(key: .localized("Subsystem"), value: entry.label?.subsystem ?? "")
 			]),
-			SYCollectionItem(key: "Other", subItems: [
-				SYCollectionItem(key: "Message Type", value: "\(entry.type?.displayText ?? "") (\(entry.level.description))")
+			SYCollectionItem(key: .localized("Other"), subItems: [
+				SYCollectionItem(key: .localized("Message Type"), value: "\(entry.type?.displayText ?? "") (\(entry.level.description))")
 			]),
 		]
 		
@@ -179,7 +179,7 @@ extension SYStreamDetailViewController {
 		let item = dataSource.itemIdentifier(for: indexPath)
 		
 		return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
-			let copyAction = UIAction(title: "Copy", image: UIImage(systemName: "doc.on.doc")) { _ in
+			let copyAction = UIAction(title: .localized("Copy"), image: UIImage(systemName: "doc.on.doc")) { _ in
 				UIPasteboard.general.string = item?.value ?? item?.key
 			}
 			return UIMenu(children: [copyAction])

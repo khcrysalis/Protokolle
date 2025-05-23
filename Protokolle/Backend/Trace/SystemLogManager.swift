@@ -15,9 +15,9 @@ extension SystemLogManager {
 		var errorDescription: String? {
 			switch self {
 			case .missingPairing:
-				"Unable to connect to TCP. Make sure you have loopback VPN enabled and you are on WiFi or Airplane mode."
+				.localized("Unable to connect to TCP. Make sure you have loopback VPN enabled and you are on WiFi or Airplane mode.")
 			case .failedToConnect:
-				"Unable to connect to relay."
+				.localized("Unable to connect to relay.")
 			}
 		}
 	}

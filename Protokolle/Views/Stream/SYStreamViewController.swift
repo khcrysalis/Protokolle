@@ -20,7 +20,7 @@ class SYStreamViewController: UICollectionViewController {
 	
 	var titleLabel: UILabel = {
 		let label = UILabel()
-		label.text = "Protokolle"
+		label.text = Bundle.main.name
 		label.font = .systemFont(ofSize: UIFont.preferredFont(forTextStyle: .headline).pointSize, weight: .semibold)
 		label.textAlignment = .center
 		label.numberOfLines = 0
@@ -235,7 +235,7 @@ extension SYStreamViewController {
 			}
 		) { _ in
 			let copyProcess = UIAction(
-				title: "Copy Process",
+				title: .localized("Copy Process"),
 				image: UIImage(systemName: "doc.on.clipboard")
 			) { _ in
 				UIPasteboard.general.string = entry.processName
@@ -244,8 +244,8 @@ extension SYStreamViewController {
 			let hideItems = self.setupFilterActions(for: entry, hide: true)
 			let showItems = self.setupFilterActions(for: entry, hide: false)
 			
-			let hideMenu = UIMenu(title: "Hide..", options: .singleSelection, children: hideItems)
-			let showMenu = UIMenu(title: "Show..", options: .singleSelection, children: showItems)
+			let hideMenu = UIMenu(title: .localized("Hide.."), options: .singleSelection, children: hideItems)
+			let showMenu = UIMenu(title: .localized("Show.."), options: .singleSelection, children: showItems)
 			
 			let filterMenus = UIMenu( options: .displayInline, children: [hideMenu, showMenu])
 
@@ -284,13 +284,13 @@ extension SYStreamViewController {
 				buttonConfiguration.baseBackgroundColor = .quaternarySystemFill
 			}
 			buttonConfiguration.cornerStyle = .capsule
-			buttonConfiguration.title = isStreaming ? "Stop Streaming" : "Start Streaming"
+			buttonConfiguration.title = isStreaming ? .localized("Stop Streaming") : .localized("Start Streaming")
 			
 			var empty = UIContentUnavailableConfiguration.empty()
 			empty.background.backgroundColor = .systemBackground
 			empty.image = UIImage(systemName: "internaldrive")
-			empty.text = "No Messages"
-			empty.secondaryText = "Streaming log messages will impact the app’s performance."
+			empty.text = .localized("No Messages")
+			empty.secondaryText = .localized("Streaming log messages will impact the app’s performance.")
 			empty.background = .listSidebarCell()
 			empty.button = buttonConfiguration
 			empty.buttonProperties.primaryAction = UIAction { _ in self.stopOrStartStream() }
@@ -315,29 +315,29 @@ extension SYStreamViewController {
 		}
 		
 		if let processName = entry.processName {
-			actions.append(action(title: "Process '\(processName)'") {
+			actions.append(action(title: .localized("Process '%@'", arguments: processName)) {
 				self.filterMenuAction(text: processName, filter: .process, hide: hide)
 			})
 		}
-		
-		actions.append(action(title: "PID '\(entry.pid)'") {
+		 
+		actions.append(action(title: .localized("PID '%@'", arguments: entry.pid)) {
 			self.filterMenuAction(text: entry.pid.description, filter: .pid, hide: hide)
 		})
 		
 		if let typeText = entry.type {
-			actions.append(action(title: "Type '\(typeText.displayText)'") {
+			actions.append(action(title: .localized("Type '%@'", arguments: typeText.displayText)) {
 				self.modifyAcceptedTypes(for: typeText, hide: hide)
 			})
 		}
 		
 		if let subsystem = entry.label?.subsystem {
-			actions.append(action(title: "Subsystem '\(subsystem)'") {
+			actions.append(action(title: .localized("Subsystem '%@'", arguments: subsystem)) {
 				self.filterMenuAction(text: subsystem, filter: .subsystem, hide: hide)
 			})
 		}
 		
 		if let category = entry.label?.category {
-			actions.append(action(title: "Category '\(category)'") {
+			actions.append(action(title: .localized("Category '%@'", arguments: category)) {
 				self.filterMenuAction(text: category, filter: .category, hide: hide)
 			})
 		}

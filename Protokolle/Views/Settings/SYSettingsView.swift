@@ -21,12 +21,12 @@ struct SYSettingsView: View {
 	// MARK: Body
 	
 	var body: some View {
-		SYNavigationView("Settings", displayMode: .large) {
+		SYNavigationView(.localized("Settings"), displayMode: .large) {
 			Form {
 				_general()
 				
-				Section("Pairing") {
-					NavigationLink("Tunnel & Pairing") {
+				Section(.localized("Pairing")) {
+					NavigationLink(.localized("Tunnel & Pairing")) {
 						SYTunnelView()
 					}
 				}
@@ -51,7 +51,7 @@ extension SYSettingsView {
 		Section {
 			VStack {
 				ZStack {
-					Text("Refresh Rate")
+					Text(.localized("Refresh Rate"))
 						.frame(maxWidth: .infinity, alignment: .center)
 					
 					HStack {
@@ -70,22 +70,16 @@ extension SYSettingsView {
 				Slider(value: $refreshSpeed, in: _refreshOptions, step: _refreshOptions.lowerBound)
 			}
 			
-			Picker("Message Threshold", selection: $bufferLimit) {
+			Picker(.localized("Message Threshold"), selection: $bufferLimit) {
 				ForEach(_bufferOptions, id: \.self) { value in
-					Text("\(value.formatted())").tag(value)
+					Text(verbatim: "\(value.formatted())").tag(value)
 				}
 			}
 			.pickerStyle(.menu)
 		} header: {
-			Text("General")
+			Text(.localized("General"))
 		} footer: {
-			Text(
-			"""
-			Refresh rate will change how often the messages list will refresh at a time.
-			
-			When the message threshold is succeeded and to avoid any excessive RAM usage we will periodically start deleting previous messages.
-			"""
-			)
+			Text(.localized("Refresh rate will change how often the messages list will refresh at a time.\n\nWhen the message threshold is succeeded and to avoid any excessive RAM usage we will periodically start deleting previous messages."))
 		}
 	}
 	
@@ -94,17 +88,17 @@ extension SYSettingsView {
 		Section {
 			NavigationLink(destination: SYAboutView()) {
 				Label {
-					Text("About \(Bundle.main.name)")
+					Text(verbatim: .localized("About %@", arguments: Bundle.main.name))
 				} icon: {
 					Image(uiImage: UIImage(named: Bundle.main.iconFileName ?? "")!)
 						.appIconStyle(size: 23)
 				}
 			}
-			Button("GitHub Repository", systemImage: "safari") {
+			Button(.localized("GitHub Repository"), systemImage: "safari") {
 				UIApplication.open(_githubUrl)
 			}
 			
-			Button("Support My Work", systemImage: "heart") {
+			Button(.localized("Support My Work"), systemImage: "heart") {
 				UIApplication.open(_donationsUrl)
 			}
 		}
@@ -112,11 +106,11 @@ extension SYSettingsView {
 	
 	@ViewBuilder
 	private func _help() -> some View {
-		Section("Help") {
-			Button("Pairing File Guide", systemImage: "questionmark.circle") {
+		Section(.localized("Help")) {
+			Button(.localized("Pairing File Guide"), systemImage: "questionmark.circle") {
 				UIApplication.open("https://github.com/StephenDev0/StikDebug-Guide/blob/main/pairing_file.md")
 			}
-			Button("Download StosVPN", systemImage: "arrow.down.app") {
+			Button(.localized("Download StosVPN"), systemImage: "arrow.down.app") {
 				UIApplication.open("https://apps.apple.com/us/app/stosvpn/id6744003051")
 			}
 		}

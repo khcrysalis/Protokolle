@@ -20,7 +20,7 @@ struct SYAboutView: View {
 					.foregroundStyle(.tint)
 				
 				HStack(spacing: 4) {
-					Text("Version")
+					Text(.localized("Version"))
 					Text(Bundle.main.version)
 				}
 				.font(.footnote)
@@ -29,6 +29,6 @@ struct SYAboutView: View {
 			.ignoresSafeArea(.all)
 		}
 		.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-		.navigationTitle("About")
+		.navigationTitle(.localized("About"))
     }
 }

@@ -1,98 +1,685 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%@" : {
-
-    },
-    "About" : {
-
+    "%lld Messages" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld Message"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lld Messages"
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "About %@" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About %@"
+          }
+        }
+      }
     },
     "Allowed Types" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allowed Types"
+          }
+        }
+      }
     },
     "Cancel" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "Category" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Category"
+          }
+        }
+      }
+    },
+    "Category ‘%@’" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Category ‘%@’"
+          }
+        }
+      }
+    },
+    "Category & Subsystem" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Category & Subsystem"
+          }
+        }
+      }
+    },
+    "Copy" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy"
+          }
+        }
+      }
+    },
+    "Copy Process" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy Process"
+          }
+        }
+      }
+    },
+    "Date" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Date"
+          }
+        }
+      }
     },
     "Download StosVPN" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download StosVPN"
+          }
+        }
+      }
     },
     "Enabled" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enabled"
+          }
+        }
+      }
     },
     "Field" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Field"
+          }
+        }
+      }
+    },
+    "Filter" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filter"
+          }
+        }
+      }
     },
     "Filters" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filters"
+          }
+        }
+      }
+    },
+    "Filters are very specific, please be wary that some may conflict and lead to unexpected results (i.e. combining 'Doesn't Contain' with 'Contains'" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filters are very specific, please be wary that some may conflict and lead to unexpected results (i.e. combining 'Doesn't Contain' with 'Contains'"
+          }
+        }
+      }
     },
     "General" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General"
+          }
+        }
+      }
     },
     "GitHub Repository" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHub Repository"
+          }
+        }
+      }
     },
     "Heartbeat" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heartbeat"
+          }
+        }
+      }
     },
     "Help" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Help"
+          }
+        }
+      }
+    },
+    "Hide.." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide.."
+          }
+        }
+      }
     },
     "Import Pairing File" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import Pairing File"
+          }
+        }
+      }
+    },
+    "Message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Message"
+          }
+        }
+      }
     },
     "Message Threshold" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Message Threshold"
+          }
+        }
+      }
+    },
+    "Message Type" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Message Type"
+          }
+        }
+      }
     },
     "Mode" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mode"
+          }
+        }
+      }
+    },
+    "Name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name"
+          }
+        }
+      }
     },
     "New Filter" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Filter"
+          }
+        }
+      }
+    },
+    "No Messages" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Messages"
+          }
+        }
+      }
     },
     "No pairing file found, please import it." : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No pairing file found, please import it."
+          }
+        }
+      }
     },
-    "Pairing" : {
-
+    "Other" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other"
+          }
+        }
+      }
     },
     "Pairing File Guide" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pairing File Guide"
+          }
+        }
+      }
+    },
+    "Path" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Path"
+          }
+        }
+      }
+    },
+    "PID" : {
+      "extractionState" : "manual",
+      "shouldTranslate" : false
+    },
+    "PID ‘%@’" : {
+      "extractionState" : "manual",
+      "shouldTranslate" : false
+    },
+    "Process" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Process"
+          }
+        }
+      }
+    },
+    "Process ‘%@’" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Process ‘%@’"
+          }
+        }
+      }
     },
     "Refresh Rate" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refresh Rate"
+          }
+        }
+      }
     },
-    "Refresh rate will change how often the messages list will refresh at a time.\n\nWhen the message threshold is succeeded and to avoid any excessive RAM usage we will periodically start deleting previous messages." : {
-
+    "Refresh rate will change how often the messages list will refresh at a time.\\n\\nWhen the message threshold is succeeded and to avoid any excessive RAM usage we will periodically start deleting previous messages." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Refresh rate will change how often the messages list will refresh at a time.\\n\\nWhen the message threshold is succeeded and to avoid any excessive RAM usage we will periodically start deleting previous messages."
+          }
+        }
+      }
     },
     "Restart Heartbeat" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restart Heartbeat"
+          }
+        }
+      }
     },
     "Save" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        }
+      }
     },
     "Seems like you've gotten your hands on your pairing file!" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seems like you've gotten your hands on your pairing file!"
+          }
+        }
+      }
     },
-    "Status" : {
-
+    "Sender" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sender"
+          }
+        }
+      }
+    },
+    "Show.." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show.."
+          }
+        }
+      }
+    },
+    "Socket" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Socket"
+          }
+        }
+      }
+    },
+    "Start Streaming" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start Streaming"
+          }
+        }
+      }
+    },
+    "Stop Streaming" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop Streaming"
+          }
+        }
+      }
+    },
+    "Stream" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stream"
+          }
+        }
+      }
+    },
+    "Streaming log messages will impact the app’s performance." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Streaming log messages will impact the app’s performance."
+          }
+        }
+      }
+    },
+    "Subsystem" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subsystem"
+          }
+        }
+      }
+    },
+    "Subsystem ‘%@’" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subsystem ‘%@’"
+          }
+        }
+      }
     },
     "Support My Work" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Support My Work"
+          }
+        }
+      }
     },
     "The heartbeat is activated in the background, it will restart when the app is re-opened or prompted. If the status below is pulsing, that means its healthy." : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The heartbeat is activated in the background, it will restart when the app is re-opened or prompted. If the status below is pulsing, that means its healthy."
+          }
+        }
+      }
+    },
+    "Timestamp (UNIX Time)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Timestamp (UNIX Time)"
+          }
+        }
+      }
+    },
+    "To save on performance, we've automatically started clearing logs from the start of the session." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To save on performance, we've automatically started clearing logs from the start of the session."
+          }
+        }
+      }
     },
     "Tunnel & Pairing" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tunnel & Pairing"
+          }
+        }
+      }
+    },
+    "Type ‘%@’" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type ‘%@’"
+          }
+        }
+      }
+    },
+    "Unable to connect to relay." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to connect to relay."
+          }
+        }
+      }
+    },
+    "Unable to connect to TCP. Make sure you have loopback VPN enabled and you are on WiFi or Airplane mode." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unable to connect to TCP. Make sure you have loopback VPN enabled and you are on WiFi or Airplane mode."
+          }
+        }
+      }
     },
     "Value" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Value"
+          }
+        }
+      }
     },
     "Version" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version"
+          }
+        }
+      }
+    },
+    "You've reached the threshold" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You've reached the threshold"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
