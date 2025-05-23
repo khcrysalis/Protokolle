@@ -28,7 +28,7 @@ struct EntryFilter: Codable, Hashable {
 			typeCheck = false
 		}
 
-		let hasMatchingCustomFilter = customFilters.isEmpty || customFilters.contains { filter in
+		let hasMatchingCustomFilter = customFilters.allSatisfy { filter in
 			let trimmed = filter.value.trimmingCharacters(in: .whitespacesAndNewlines)
 			guard !trimmed.isEmpty else { return true }
 			

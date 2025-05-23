@@ -11,7 +11,11 @@ import SwiftUI
 struct SYFilterView: View {
 	@Environment(\.dismiss) private var dismiss
 
-	@State var entryFilter = Preferences.entryFilter ?? EntryFilter()
+	@State var entryFilter = Preferences.entryFilter ?? EntryFilter() {
+		didSet {
+			dump(entryFilter)
+		}
+	}
 	
 	// MARK: Body
 	
@@ -62,7 +66,7 @@ struct SYFilterView: View {
 extension SYFilterView {
 	@ViewBuilder
 	private func _add() -> some View {
-		Section("Filters") {
+		Section {
 			Button("New Filter") {
 				let blankFilter = EntryFilter.CustomFilter(type: .any, mode: .contains)
 				entryFilter.customFilters.append(blankFilter)
@@ -92,6 +96,10 @@ extension SYFilterView {
 			.onDelete { indexSet in
 				entryFilter.customFilters.remove(atOffsets: indexSet)
 			}
+		} header: {
+			Text("Filters")
+		} footer: {
+			Text("Filters are very specific, please be wary that some may conflict and lead to unexpected results (i.e. combining 'Doesn't Contain' with 'Contains'")
 		}
 	}
 	
