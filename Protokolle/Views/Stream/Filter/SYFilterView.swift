@@ -11,7 +11,11 @@ import SwiftUI
 struct SYFilterView: View {
 	@Environment(\.dismiss) private var dismiss
 
-	@State var entryFilter = Preferences.entryFilter ?? EntryFilter()
+	@State var entryFilter = Preferences.entryFilter ?? EntryFilter() {
+		didSet {
+			dump(entryFilter)
+		}
+	}
 	
 	// MARK: Body
 	

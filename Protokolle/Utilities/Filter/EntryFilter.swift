@@ -12,26 +12,27 @@ struct EntryFilter: Codable, Hashable {
 	var isEnabled: Bool = false
 	var customFilters: [CustomFilter] = []
 	
-	private var _acceptedTypesInternal: [UInt8] = LogMessageEventModel.allCases.map(\.rawValue)
-	
-	var acceptedTypes: Set<LogMessageEventModel> {
-		didSet {
-			_acceptedTypesInternal = acceptedTypes.map(\.rawValue)
-		}
-	}
+	var acceptedTypes: Set<LogMessageEventModel> = Set(LogMessageEventModel.allCases)
 	
 	init(customFilters: [CustomFilter] = []) {
 		self.customFilters = customFilters
-		self.acceptedTypes = Set(_acceptedTypesInternal.compactMap(LogMessageEventModel.init))
 	}
 	
 	func entryPassesFilter(_ entry: LogEntryModel) -> Bool {
 		if !isEnabled { return true }
 		
-		let textChecks = customFilters.map { filter in
-			if filter.value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-				return true
-			}
+		let typeCheck: Bool
+		if let level = LogMessageEventModel(entry.level) {
+			typeCheck = acceptedTypes.contains(level)
+		} else {
+			typeCheck = false
+		}
+
+		let hasMatchingCustomFilter = customFilters.isEmpty || customFilters.contains { filter in
+			let trimmed = filter.value.trimmingCharacters(in: .whitespacesAndNewlines)
+			guard !trimmed.isEmpty else { return true }
+			
+			let matcher = TextFilter(text: trimmed, mode: filter.mode)
 			
 			if filter.type == .any {
 				let fieldsToCheck: [String?] = [
@@ -41,10 +42,7 @@ struct EntryFilter: Codable, Hashable {
 					entry.label?.category,
 					entry.pid.description
 				]
-				
-				return fieldsToCheck.contains {
-					TextFilter(text: filter.value, mode: filter.mode).matches($0)
-				}
+				return fieldsToCheck.contains { matcher.matches($0) }
 			} else {
 				let valueToMatch: String? = {
 					switch filter.type {
@@ -53,18 +51,16 @@ struct EntryFilter: Codable, Hashable {
 					case .subsystem: return entry.label?.subsystem
 					case .category: return entry.label?.category
 					case .pid: return entry.pid.description
-					default: return nil
+					case .any: return nil
 					}
 				}()
-				return TextFilter(text: filter.value, mode: filter.mode).matches(valueToMatch)
+				return matcher.matches(valueToMatch)
 			}
 		}
 		
-		let typeCheck = _acceptedTypesInternal.contains(entry.level)
-		
-		let allChecks = textChecks + [typeCheck]
-		return allChecks.allSatisfy { $0 }
+		return typeCheck && hasMatchingCustomFilter
 	}
+
 }
 
 extension EntryFilter {

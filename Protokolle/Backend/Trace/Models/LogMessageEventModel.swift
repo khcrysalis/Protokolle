@@ -58,15 +58,15 @@ extension LogMessageEventModel: CaseIterable {
 		rawValue: 0
 	)
 	
-	static var debug = LogMessageEventModel(
-		displayText: "Debug",
-		color: .systemYellow,
-		rawValue: 1
-	)
-	
 	static var info = LogMessageEventModel(
 		displayText: "Info",
 		color: .systemGray,
+		rawValue: 1
+	)
+	
+	static var debug = LogMessageEventModel(
+		displayText: "Debug",
+		color: .systemYellow,
 		rawValue: 2
 	)
 	
