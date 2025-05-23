@@ -16,7 +16,7 @@ struct SYSettingsView: View {
 	private let _bufferOptions = Array(stride(from: 50_000, through: 150_000, by: 25_000))
 	
 	private let _donationsUrl = "https://github.com/sponsors/khcrysalis"
-	private let _githubUrl = "https://github.com/khcrysalis/Feather"
+	private let _githubUrl = "https://github.com/khcrysalis/Protokolle"
 	
 	// MARK: Body
 	
@@ -102,6 +102,10 @@ extension SYSettingsView {
 			}
 			Button("GitHub Repository", systemImage: "safari") {
 				UIApplication.open(_githubUrl)
+			}
+			
+			Button("Support My Work", systemImage: "heart") {
+				UIApplication.open(_donationsUrl)
 			}
 		}
 	}
