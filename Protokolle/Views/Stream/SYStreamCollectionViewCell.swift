@@ -16,13 +16,13 @@ class SYStreamCollectionViewCell: UICollectionViewCell {
 	
 	let nameLabel: UILabel = {
 		let nameLabel = UILabel()
-		nameLabel.font = .systemFont(ofSize: UIFont.preferredFont(forTextStyle: .headline).pointSize, weight: .semibold)
+		nameLabel.font = .systemFont(ofSize: 14, weight: .semibold)
 		return nameLabel
 	}()
 	
 	let descriptionLabel: UILabel = {
 		let nameLabel = UILabel()
-		nameLabel.font = .systemFont(ofSize: UIFont.preferredFont(forTextStyle: .subheadline).pointSize)
+		nameLabel.font = .systemFont(ofSize: 13)
 		nameLabel.textColor = .secondaryLabel
 		nameLabel.numberOfLines = 2
 		return nameLabel

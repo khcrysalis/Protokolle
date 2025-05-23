@@ -320,7 +320,7 @@ extension SYStreamViewController {
 			})
 		}
 		 
-		actions.append(action(title: .localized("PID '%@'", arguments: entry.pid)) {
+		actions.append(action(title: .localized("PID '%@'", arguments: entry.pid.description)) {
 			self.filterMenuAction(text: entry.pid.description, filter: .pid, hide: hide)
 		})
 		
