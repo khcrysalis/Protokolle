@@ -20,7 +20,7 @@ class SYStreamViewController: UICollectionViewController {
 	
 	var titleLabel: UILabel = {
 		let label = UILabel()
-		label.text = "Console"
+		label.text = "Protokolle"
 		label.font = .systemFont(ofSize: UIFont.preferredFont(forTextStyle: .headline).pointSize, weight: .semibold)
 		label.textAlignment = .center
 		label.numberOfLines = 0
@@ -36,11 +36,8 @@ class SYStreamViewController: UICollectionViewController {
 		return label
 	}()
 	
-	let numberFormatter: NumberFormatter = {
-		let fmt = NumberFormatter()
-		fmt.usesGroupingSeparator = true
-		fmt.numberStyle = .decimal
-		return fmt
+	lazy var filterButton: UIBarButtonItem = {
+		UIBarButtonItem(systemImageName: "line.3.horizontal.decrease.circle.fill", showDot: filter?.isEnabled ?? false, target: self, action: #selector(filterAction))
 	}()
 		
 	lazy var playButton: UIBarButtonItem = {
@@ -61,12 +58,13 @@ class SYStreamViewController: UICollectionViewController {
 		return stream
 	}()
 	
-	let searchController = UISearchController(searchResultsController: nil)
 	var automaticallyScrollToBottom: Bool = true
+	var userInformedAboutThreshold: Bool = false
 	var menuDelegate: SYMenuContainerViewDelegate?
 	
 	var batch: [LogEntryModel] = []
-	var buffer: Int = UserDefaults.standard.integer(forKey: "SY.bufferLimit")
+	var buffer = Preferences.bufferLimit
+	var filter: EntryFilter? = Preferences.entryFilter
 	
 	lazy var timer = makeTimer()
 		
@@ -76,15 +74,14 @@ class SYStreamViewController: UICollectionViewController {
 		setupToolbar()
 		setupDataSource()
 		setupCollectionView()
-		RunLoop.current.add(timer, forMode: .common)
 		setupListeners()
+		RunLoop.current.add(timer, forMode: .common)
 	}
 	
 	// MARK: Setup
 	
 	func setupCollectionView() {
 		collectionView.isPrefetchingEnabled = true
-		collectionView.allowsSelection = true
 		collectionView.backgroundColor = .secondarySystemBackground
 		collectionView.register(
 			SYStreamCollectionViewCell.self,
@@ -99,14 +96,11 @@ class SYStreamViewController: UICollectionViewController {
 		
 		let settingsButton = UIBarButtonItem(systemImageName: "gear.circle.fill", target: self, action: #selector(settingsAction))
 		navigationItem.leftBarButtonItems = [settingsButton]
-		
-		searchController.searchBar.enablesReturnKeyAutomatically = false
-		navigationItem.searchController = searchController
 	}
 	
 	func setupToolbar() {
 		let buttons = [
-			UIBarButtonItem(systemImageName: "magnifyingglass.circle.fill", target: self, action: #selector(searchAction)),
+			filterButton,
 			playButton,
 			downButton,
 			UIBarButtonItem(systemImageName: "xmark.circle.fill", target: self, action: #selector(clearAll))
@@ -125,15 +119,6 @@ class SYStreamViewController: UICollectionViewController {
 		}
 		var snapshot = dataSource.snapshot()
 		snapshot.appendSections([0])
-		#if DEBUG
-		let items = [
-			LogEntryModel(),
-			LogEntryModel(),
-			LogEntryModel()
-		]
-		snapshot.appendItems(items)
-		#endif
-		
 		dataSourceApply(snapshot: snapshot)
 	}
 	
@@ -142,6 +127,7 @@ class SYStreamViewController: UICollectionViewController {
 			name: .refreshSpeedDidChange,
 			castTo: TimeInterval.self
 		) { newValue in
+			NSLog("Set timer to \(newValue)")
 			self.timer.invalidate()
 			self.timer = self.makeTimer(interval: newValue)
 			RunLoop.main.add(self.timer, forMode: .common)
@@ -151,7 +137,41 @@ class SYStreamViewController: UICollectionViewController {
 			name: .bufferLimitDidChange,
 			castTo: Int.self
 		) { newValue in
+			NSLog("Set buffer to \(newValue)")
 			self.buffer = newValue
+		}
+		
+		let _ = NotificationCenter.addObserver(
+			name: .isStreamingDidChange,
+			castTo: Bool.self
+		) { _ in
+			let newValue = self.logManager.isStreaming
+			NSLog("Is stream running? \(newValue)")
+			DispatchQueue.main.async {
+				self.playButton.updateImage(
+					systemImageName: !newValue ? "play.circle.fill" : "pause.circle.fill",
+					highlighted: newValue
+				)
+				
+				if #available(iOS 17.0, *) {
+					self.setNeedsUpdateContentUnavailableConfiguration()
+				}
+			}
+		}
+		
+		let _ = NotificationCenter.addObserver(
+			name: .entryFilterDidChange,
+			castTo: EntryFilter.self
+		) { newValue in
+			self.filter = newValue
+			
+			DispatchQueue.main.async {
+				self.filterButton.updateImage(
+					systemImageName: "line.3.horizontal.decrease.circle.fill",
+					highlighted: false,
+					showDot: self.filter?.isEnabled ?? false
+				)
+			}
 		}
 	}
 	
@@ -161,22 +181,23 @@ class SYStreamViewController: UICollectionViewController {
 		menuDelegate?.handleMenuToggle()
 	}
 	
-	@objc func searchAction() {
-		searchController.searchBar.becomeFirstResponder()
+	@objc func filterAction() {
+		let controller = UIHostingController(rootView: SYFilterView())
+		present(controller, animated: true)
 	}
 	
 	@objc func scrollAllTheWayDown() {
 		collectionView.scrollToItem(
 			at: IndexPath(row: dataSource.snapshot().numberOfItems - 1, section: 0),
 			at: .bottom,
-			animated: true
+			animated: false
 		)
 		downButton.isEnabled = false
 		automaticallyScrollToBottom = true
 	}
 }
 
-// MARK: - Class extension
+// MARK: - Class extension: Cells
 extension SYStreamViewController {
 	func presentEntryController(using controller: UIViewController) {
 		let controller = UINavigationController(rootViewController: controller)
@@ -200,7 +221,11 @@ extension SYStreamViewController {
 		automaticallyScrollToBottom = false
 	}
 	
-	override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+	override func collectionView(
+		_ collectionView: UICollectionView,
+		contextMenuConfigurationForItemAt indexPath: IndexPath,
+		point: CGPoint
+	) -> UIContextMenuConfiguration? {
 		guard let entry = dataSource.itemIdentifier(for: indexPath) else { return nil }
 		
 		return UIContextMenuConfiguration(
@@ -209,11 +234,23 @@ extension SYStreamViewController {
 				SYStreamDetailViewController(with: entry)
 			}
 		) { _ in
-			let favorite = UIAction(title: "Copy Process", image: UIImage(systemName: "document.on.clipboard")) { action in
+			let copyProcess = UIAction(
+				title: "Copy Process",
+				image: UIImage(systemName: "doc.on.clipboard")
+			) { _ in
 				UIPasteboard.general.string = entry.processName
 			}
 			
-			return UIMenu(children: [favorite])
+			let hideItems = self.setupFilterActions(for: entry, hide: true)
+			let showItems = self.setupFilterActions(for: entry, hide: false)
+			
+			let hideMenu = UIMenu(title: "Hide..", options: .singleSelection, children: hideItems)
+			let showMenu = UIMenu(title: "Show..", options: .singleSelection, children: showItems)
+			
+			let filterMenus = UIMenu( options: .displayInline, children: [hideMenu, showMenu])
+
+			
+			return UIMenu(children: [copyProcess, filterMenus])
 		}
 	}
 		
@@ -221,9 +258,7 @@ extension SYStreamViewController {
 		guard let controller = animator.previewViewController as? SYStreamDetailViewController else { return }
 		
 		animator.addCompletion {
-			if UIDevice.current.userInterfaceIdiom == .phone {
-				self.presentEntryController(using: controller)
-			}
+			self.presentEntryController(using: controller)
 		}
 	}
 	
@@ -238,16 +273,24 @@ extension SYStreamViewController {
 	override func updateContentUnavailableConfiguration(using state: UIContentUnavailableConfigurationState) {
 		var config: UIContentUnavailableConfiguration?
 		if dataSource.snapshot().numberOfItems == 0 {
-			var buttonConfiguration = UIButton.Configuration.bordered()
+			let isStreaming = logManager.isStreaming
+			
+			var buttonConfiguration: UIButton.Configuration
+			if isStreaming {
+				buttonConfiguration = .borderedProminent()
+				buttonConfiguration.baseBackgroundColor = nil
+			} else {
+				buttonConfiguration = .bordered()
+				buttonConfiguration.baseBackgroundColor = .quaternarySystemFill
+			}
 			buttonConfiguration.cornerStyle = .capsule
-			buttonConfiguration.title = "Start Streaming"
-			buttonConfiguration.baseBackgroundColor = .quaternarySystemFill
+			buttonConfiguration.title = isStreaming ? "Stop Streaming" : "Start Streaming"
 			
 			var empty = UIContentUnavailableConfiguration.empty()
 			empty.background.backgroundColor = .systemBackground
 			empty.image = UIImage(systemName: "internaldrive")
 			empty.text = "No Messages"
-			empty.secondaryText = "Streaming log messages will impact the apps performance."
+			empty.secondaryText = "Streaming log messages will impact the app’s performance."
 			empty.background = .listSidebarCell()
 			empty.button = buttonConfiguration
 			empty.buttonProperties.primaryAction = UIAction { _ in self.stopOrStartStream() }
@@ -259,5 +302,77 @@ extension SYStreamViewController {
 			contentUnavailableConfiguration = nil
 			return
 		}
+	}
+}
+
+// MARK: - Class extension: Filter
+extension SYStreamViewController {
+	func setupFilterActions(for entry: LogEntryModel, hide: Bool) -> [UIAction] {
+		var actions: [UIAction] = []
+		
+		func action(title: String, handler: @escaping () -> Void) -> UIAction {
+			UIAction(title: title) { _ in handler() }
+		}
+		
+		if let processName = entry.processName {
+			actions.append(action(title: "Process '\(processName)'") {
+				self.filterMenuAction(text: processName, filter: .process, hide: hide)
+			})
+		}
+		
+		actions.append(action(title: "PID '\(entry.pid)'") {
+			self.filterMenuAction(text: entry.pid.description, filter: .pid, hide: hide)
+		})
+		
+		if let typeText = entry.type {
+			actions.append(action(title: "Type '\(typeText.displayText)'") {
+				self.modifyAcceptedTypes(for: typeText, hide: hide)
+			})
+		}
+		
+		if let subsystem = entry.label?.subsystem {
+			actions.append(action(title: "Subsystem '\(subsystem)'") {
+				self.filterMenuAction(text: subsystem, filter: .subsystem, hide: hide)
+			})
+		}
+		
+		if let category = entry.label?.category {
+			actions.append(action(title: "Category '\(category)'") {
+				self.filterMenuAction(text: category, filter: .category, hide: hide)
+			})
+		}
+		
+		return actions
+	}
+	
+	func filterMenuAction(text: String, filter: EntryFilter.AdditionalFilterType, hide: Bool) {
+		var entryFilter = Preferences.entryFilter ?? EntryFilter()
+		entryFilter.isEnabled = true
+		
+		var filter = EntryFilter.CustomFilter(type: filter, value: text, mode: .doesntContain)
+		
+		if !hide {
+			filter.mode = .contains
+		}
+		
+		entryFilter.customFilters.append(filter)
+		Preferences.entryFilter = entryFilter
+	}
+	
+	func modifyAcceptedTypes(for type: LogMessageEventModel, hide: Bool) {
+		var entryFilter = Preferences.entryFilter ?? EntryFilter()
+		entryFilter.isEnabled = true
+		
+		if hide {
+			if entryFilter.acceptedTypes.contains(type) {
+				entryFilter.acceptedTypes.remove(type)
+			}
+		} else {
+			if !entryFilter.acceptedTypes.contains(type) {
+				entryFilter.acceptedTypes.insert(type)
+			}
+		}
+		
+		Preferences.entryFilter = entryFilter
 	}
 }

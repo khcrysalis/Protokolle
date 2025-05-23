@@ -7,6 +7,7 @@
 
 import UIKit
 
+// MARK: - Class extension: Unique Item
 extension SYStreamDetailViewController {
 	struct SYCollectionItem: Hashable {
 		let id = UUID()
@@ -24,6 +25,7 @@ extension SYStreamDetailViewController {
 	}
 }
 
+// MARK: - Class
 class SYStreamDetailViewController: UICollectionViewController {
 	typealias CollectionDataSource = UICollectionViewDiffableDataSource<Int, SYCollectionItem>
 	
@@ -171,6 +173,7 @@ class SYStreamDetailViewController: UICollectionViewController {
 	}
 }
 
+// MARK: - Class extension: Cells
 extension SYStreamDetailViewController {
 	override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
 		let item = dataSource.itemIdentifier(for: indexPath)

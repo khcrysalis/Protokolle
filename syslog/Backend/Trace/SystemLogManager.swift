@@ -7,6 +7,22 @@
 
 import UIKit
 
+extension SystemLogManager {
+	enum SYSystemLogError: Error, LocalizedError {
+		case missingPairing
+		case failedToConnect
+		
+		var errorDescription: String? {
+			switch self {
+			case .missingPairing:
+				"Unable to connect to TCP. Make sure you have loopback VPN enabled and you are on WiFi or Airplane mode."
+			case .failedToConnect:
+				"Unable to connect to relay."
+			}
+		}
+	}
+}
+
 class SystemLogManager: NSObject {
 	static let shared = SystemLogManager()
 	let heartbeat = HeartbeatManager.shared
@@ -19,28 +35,16 @@ class SystemLogManager: NSObject {
 	var osTraceRelayClient: OsTraceRelayClientHandle?
 	var osTraceReceiverClient: OsTraceRelayReceiverHandle?
 	
-	var isStreaming: Bool = false
+	var isStreaming: Bool = false {
+		didSet {
+			NotificationCenter.default.post(
+				Notification(name: .isStreamingDidChange, object: isStreaming)
+			)
+		}
+	}
 	
 	weak var delegate: SystemLogManagerDelegate?
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	func connect() async throws {
 		guard FileManager.default.fileExists(atPath: HeartbeatManager.pairingFile()) else {
@@ -63,9 +67,7 @@ class SystemLogManager: NSObject {
 			guard syslog_relay_connect_tcp(self.heartbeat.provider, &self.syslogClient) == IdeviceSuccess else {
 				throw SYSystemLogError.failedToConnect
 			}
-			
-			print("Successfully connected to syslog relay")
-			
+					
 			self.isStreaming = true
 			
 			while self.isStreaming {
@@ -87,9 +89,7 @@ class SystemLogManager: NSObject {
 					break
 				}
 			}
-			
-			print("Syslog relay connection closed")
-			
+						
 			if let syslogClient = self.syslogClient {
 				syslog_relay_client_free(syslogClient)
 				self.syslogClient = nil
@@ -122,10 +122,10 @@ class SystemLogManager: NSObject {
 				let result = os_trace_relay_next(recClient, &oslogg)
 				
 				if result == IdeviceSuccess, let oslogg = oslogg {
-					defer { os_trace_relay_free_log(oslogg) }
 					let logCopy = oslogg.pointee
 					let model = LogEntryModel(logCopy)
 					self.delegate?.activityStream(didRecieveEntry: model)
+					os_trace_relay_free_log(oslogg)
 				} else if result != IdeviceSuccess {
 					break
 				}
@@ -147,20 +147,5 @@ class SystemLogManager: NSObject {
 	
 	deinit {
 		stop()
-	}
-	
-	// Add error enum at the top of the file
-	enum SYSystemLogError: Error, LocalizedError {
-		case missingPairing
-		case failedToConnect
-		
-		var errorDescription: String? {
-			switch self {
-			case .missingPairing:
-				"Unable to connect to TCP. Make sure you have loopback VPN enabled and you are on WiFi or Airplane mode."
-			case .failedToConnect:
-				"Unable to connect to relay."
-			}
-		}
 	}
 }

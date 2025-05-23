@@ -8,20 +8,13 @@
 import Foundation
 import UIKit.UIApplication
 
-// MARK: - Class extension
+// MARK: - Class extension: Stream stuff
 extension SYStreamViewController {
 	@objc func stopOrStartStream() {
-		let isStreaming = logManager.isStreaming
-		
-		playButton.updateImage(
-			systemImageName: isStreaming ? "play.circle.fill" : "pause.circle.fill",
-			highlighted: !isStreaming
-		)
-		
 		Task { [weak self] in
 			guard let self else { return }
 			
-			if isStreaming {
+			if logManager.isStreaming {
 				self.logManager.stop()
 			} else {
 				do {
@@ -52,12 +45,13 @@ extension SYStreamViewController {
 		// this may crash lol
 		dataSource.applySnapshotUsingReloadData(snapshot) {
 			let itemCount = snapshot.numberOfItems
-			let formattedCount = self.numberFormatter.string(from: NSNumber(value: itemCount)) ?? "\(itemCount)"
-			self.subtitleLabel.text = "\(formattedCount) Messages"
+			let label =  "\(String(itemCount).formattedAsDecimal() ?? "0") Messages"
+			self.subtitleLabel.text = label
+			UIApplication.sceneDelegate?.currentScene?.title = label
 		}
 	}
 	
-	func makeTimer(interval: TimeInterval = UserDefaults.standard.double(forKey: "SY.refreshSpeed")) -> Timer {
+	func makeTimer(interval: TimeInterval = Preferences.refreshSpeed) -> Timer {
 		return Timer(timeInterval: interval, repeats: true) { [self] _  in
 			// if we're paused,
 			// or collecting logs in background
@@ -90,6 +84,17 @@ extension SYStreamViewController {
 		let newTotalCount = currentCount + batch.count
 		
 		if newTotalCount > buffer {
+			
+			if !userInformedAboutThreshold {
+				UIAlertController.showAlertWithOk(
+					title: "You've reached the threshold",
+					message: "To save on performance, we've automatically started clearing logs from the start of the session."
+				)
+				
+				logManager.isStreaming = false
+				userInformedAboutThreshold = true
+			}
+			
 			let overflowCount = min(batch.count, currentCount)
 			
 			let itemsToRemove = snapshot.itemIdentifiers.prefix(overflowCount)

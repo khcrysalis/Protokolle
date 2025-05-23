@@ -7,10 +7,12 @@
 
 import UIKit
 
-// MARK: - Class extension
+// MARK: - Class extension: SystemLogManagerDelegate
 extension SYStreamViewController: SystemLogManagerDelegate {
 	func activityStream(didRecieveEntry entry: LogEntryModel) {
-		batch.append(entry)
+		if filter?.entryPassesFilter(entry) ?? true {
+			batch.append(entry)
+		}
 	}
 	
 	func activityStream(didRecieveString entryString: String) {}

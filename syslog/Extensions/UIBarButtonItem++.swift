@@ -14,28 +14,57 @@ extension UIBarButtonItem {
 		scale: UIImage.SymbolScale = .large,
 		weight: UIImage.SymbolWeight = .regular,
 		highlighted: Bool = false,
+		showDot: Bool = false,
 		target: NSObject? = nil,
-		action: ObjectiveC.Selector? = nil
+		action: Selector? = nil
 	) {
-		var config = UIImage.SymbolConfiguration(pointSize: pointSize, weight: weight, scale: scale)
+		let button = UIButton(type: .system)
+		button.tintColor = .tintColor
 		
-		if highlighted {
-			config = config.applying(UIImage.SymbolConfiguration(paletteColors: [.white, .tintColor]))
-		} else {
-			config = config.applying(UIImage.SymbolConfiguration(paletteColors: [.tintColor, .quaternarySystemFill]))
-		}
-			
+		var config = UIImage.SymbolConfiguration(pointSize: pointSize, weight: weight, scale: scale)
+		let paletteColors: [UIColor] = highlighted ? [.white, .tintColor] : [.tintColor, .quaternarySystemFill]
+		config = config.applying(UIImage.SymbolConfiguration(paletteColors: paletteColors))
+		
 		let image = UIImage(systemName: systemImageName, withConfiguration: config)
-		self.init(image: image, style: .plain, target: target, action: action)
+		button.setImage(image, for: .normal)
+		button.addTarget(target, action: action ?? #selector(dummySelector), for: .touchUpInside)
+		button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+		
+		if showDot {
+			let dotSize: CGFloat = 8
+			let dotView = UIView(frame: CGRect(x: button.frame.width - dotSize - 2, y: 4, width: dotSize, height: dotSize))
+			dotView.backgroundColor = .tintColor
+			dotView.layer.cornerRadius = dotSize / 2
+			dotView.tag = 999
+			dotView.isUserInteractionEnabled = false
+			button.addSubview(dotView)
+		}
+		
+		self.init(customView: button)
 	}
 	
-	func updateImage(systemImageName: String, highlighted: Bool) {
+	func updateImage(systemImageName: String, highlighted: Bool, showDot: Bool = false) {
+		guard let button = self.customView as? UIButton else { return }
+		
 		var config = UIImage.SymbolConfiguration(pointSize: 26, weight: .regular, scale: .large)
-		if highlighted {
-			config = config.applying(UIImage.SymbolConfiguration(paletteColors: [.white, .tintColor]))
-		} else {
-			config = config.applying(UIImage.SymbolConfiguration(paletteColors: [.tintColor, .quaternarySystemFill]))
+		let paletteColors: [UIColor] = highlighted ? [.white, .tintColor] : [.tintColor, .quaternarySystemFill]
+		config = config.applying(UIImage.SymbolConfiguration(paletteColors: paletteColors))
+		
+		let image = UIImage(systemName: systemImageName, withConfiguration: config)
+		button.setImage(image, for: .normal)
+		
+		if let dotView = button.viewWithTag(999) {
+			dotView.isHidden = !showDot
+		} else if showDot {
+			let dotSize: CGFloat = 8
+			let dotView = UIView(frame: CGRect(x: button.frame.width - dotSize - 2, y: 4, width: dotSize, height: dotSize))
+			dotView.backgroundColor = .tintColor
+			dotView.layer.cornerRadius = dotSize / 2
+			dotView.tag = 999
+			dotView.isUserInteractionEnabled = false
+			button.addSubview(dotView)
 		}
-		self.image = UIImage(systemName: systemImageName, withConfiguration: config)
 	}
+	
+	@objc private func dummySelector() {}
 }

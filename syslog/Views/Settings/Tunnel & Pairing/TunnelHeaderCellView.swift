@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TunnelHeaderView: View {
+struct SYTunnelHeaderView: View {
 	@State var lastHeartbeatTime = Date()
 	
 	var body: some View {

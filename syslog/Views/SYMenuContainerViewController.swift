@@ -101,7 +101,6 @@ class SYMenuContainerViewController: UIViewController {
 			self.view.layoutIfNeeded()
 		})
 	}
-
 	
 	func configureGestures() {
 		let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))

@@ -7,9 +7,10 @@
 
 import SwiftUI
 
+// MARK: - View
 struct SYSettingsView: View {
-	@AppStorage("SY.refreshSpeed") var refreshSpeed: Double = 1.0
-	@AppStorage("SY.bufferLimit") var bufferLimit: Int = 75000
+	@AppStorage("SY.refreshSpeed") var refreshSpeed = Preferences.refreshSpeed
+	@AppStorage("SY.bufferLimit") var bufferLimit = Preferences.bufferLimit
 	
 	private let _refreshOptions = 1.0...10
 	private let _bufferOptions = Array(stride(from: 50_000, through: 150_000, by: 25_000))
@@ -17,39 +18,34 @@ struct SYSettingsView: View {
 	private let _donationsUrl = "https://github.com/sponsors/khcrysalis"
 	private let _githubUrl = "https://github.com/khcrysalis/Feather"
 	
+	// MARK: Body
+	
 	var body: some View {
-		NavigationStack {
+		SYNavigationView("Settings", displayMode: .large) {
 			Form {
 				_general()
 				
 				Section("Pairing") {
 					NavigationLink("Tunnel & Pairing") {
-						TunnelView()
+						SYTunnelView()
 					}
 				}
 				
 				_feedback()
 				_help()
 			}
-			.navigationTitle("Settings")
-			.navigationBarTitleDisplayMode(.large)
-			.scrollIndicators(.hidden)
-			.onChange(of: refreshSpeed) { _ in
-				NotificationCenter.default.post(
-					Notification(name: .refreshSpeedDidChange, object: refreshSpeed)
-				)
-			}
-			.onChange(of: bufferLimit) { _ in
-				NotificationCenter.default.post(
-					Notification(name: .bufferLimitDidChange, object: bufferLimit)
-				)
-			}
+		}
+		.onChange(of: refreshSpeed) { newValue in
+			Preferences.refreshSpeedCallback(newValue: newValue)
+		}
+		.onChange(of: bufferLimit) { newValue in
+			Preferences.bufferLimitCallback(newValue: newValue)
 		}
 	}
 }
 
+// MARK: - View extension
 extension SYSettingsView {
-	
 	@ViewBuilder
 	private func _general() -> some View {
 		Section {
@@ -96,7 +92,14 @@ extension SYSettingsView {
 	@ViewBuilder
 	private func _feedback() -> some View {
 		Section {
-			NavigationLink("About", destination: EmptyView())
+			NavigationLink(destination: SYAboutView()) {
+				Label {
+					Text("About \(Bundle.main.name)")
+				} icon: {
+					Image(uiImage: UIImage(named: Bundle.main.iconFileName ?? "")!)
+						.appIconStyle(size: 23)
+				}
+			}
 			Button("GitHub Repository", systemImage: "safari") {
 				UIApplication.open(_githubUrl)
 			}

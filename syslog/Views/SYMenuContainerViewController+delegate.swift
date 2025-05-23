@@ -7,7 +7,7 @@
 
 import UIKit.UIGestureRecognizer
 
-// MARK: - SYContainerViewControllerDelegate
+// MARK: - Class extension: SYContainerViewControllerDelegate
 extension SYMenuContainerViewController: SYMenuContainerViewDelegate {
 	func handleMenuToggle() {
 		isExpanded.toggle()
@@ -15,7 +15,7 @@ extension SYMenuContainerViewController: SYMenuContainerViewDelegate {
 	}
 }
 
-// MARK: - UIGestureRecognizerDelegate
+// MARK: - Class extension: UIGestureRecognizerDelegate
 extension SYMenuContainerViewController: UIGestureRecognizerDelegate {
 	func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
 		return isExpanded

@@ -1,0 +1,95 @@
+//
+//  TunnelView.swift
+//  syslog
+//
+//  Created by samara on 20.05.2025.
+//
+
+import SwiftUI
+
+// MARK: - View
+struct SYTunnelView: View {
+	@State private var _isImportingPairingPresenting = false
+	@State var doesHavePairingFile = false
+	
+	// MARK: Body
+	
+	var body: some View {
+		Form {
+			Section {
+				_tunnelInfo()
+				SYTunnelHeaderView()
+			} footer: {
+				if doesHavePairingFile {
+					Text("Seems like you've gotten your hands on your pairing file!")
+				} else {
+					Text("No pairing file found, please import it.")
+				}
+			}
+			
+			Section {
+				Button("Import Pairing File", systemImage: "square.and.arrow.down") {
+					_isImportingPairingPresenting = true
+				}
+				Button("Restart Heartbeat", systemImage: "arrow.counterclockwise") {
+					HeartbeatManager.shared.start(true)
+					
+					DispatchQueue.global(qos: .userInitiated).async {
+						if !HeartbeatManager.shared.checkSocketConnection().isConnected {
+							DispatchQueue.main.async {
+								UIAlertController.showAlertWithOk(
+									title: "Socket",
+									message: "Unable to connect to TCP. Make sure you have loopback VPN enabled and you are on WiFi or Airplane mode."
+								)
+							}
+						}
+					}
+				}
+			}
+		}
+		.navigationTitle("Tunnel & Pairing")
+		.sheet(isPresented: $_isImportingPairingPresenting) {
+			FileImporterRepresentableView(
+				allowedContentTypes:  [.xmlPropertyList, .plist, .mobiledevicepairing],
+				onDocumentsPicked: { urls in
+					guard let selectedFileURL = urls.first else { return }
+					movePairing(selectedFileURL)
+					doesHavePairingFile = true
+				}
+			)
+		}
+		.onAppear {
+			if FileManager.default.fileExists(atPath: HeartbeatManager.pairingFile()) {
+				doesHavePairingFile = true
+			} else {
+				doesHavePairingFile = false
+			}
+		}
+	}
+	
+	@ViewBuilder
+	private func _tunnelInfo() -> some View {
+		HStack {
+			VStack(alignment: .leading, spacing: 6) {
+				Text("Heartbeat")
+					.font(.headline)
+				Text("The heartbeat is activated in the background, it will restart when the app is re-opened or prompted. If the status below is pulsing, that means its healthy.")
+					.font(.subheadline)
+					.foregroundStyle(.secondary)
+			}
+			.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+		}
+	}
+	
+	func movePairing(_ url: URL) {
+		let fileManager = FileManager.default
+		let dest = URL.documentsDirectory.appendingPathComponent("pairingFile.plist")
+		
+		try? fileManager.removeFileIfNeeded(at: dest)
+		
+		try? fileManager.copyItem(at: url, to: dest)
+		
+		HeartbeatManager.shared.start(true)
+	}
+}
+

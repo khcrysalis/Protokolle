@@ -7,6 +7,7 @@
 
 import UIKit
 
+// MARK: - Class
 class SYStreamCollectionViewCell: UICollectionViewCell {
 	let padding: CGFloat = 14
 	let cornerRadius: CGFloat = 14
@@ -58,14 +59,14 @@ class SYStreamCollectionViewCell: UICollectionViewCell {
 	
 	private func updateSelectionAppearance() {
 		if isSelected {
-			backgroundColor = .tintColor.withAlphaComponent(0.3)
+			backgroundColor = .systemGray.withAlphaComponent(0.4)
 		} else {
-			backgroundColor = .systemGray5
+			backgroundColor = .quaternarySystemFill
 		}
 	}
 	
 	private func setup() {
-		backgroundColor = .systemGray5
+		backgroundColor = .quaternarySystemFill
 		clipsToBounds = true
 		
 		layer.cornerRadius = cornerRadius

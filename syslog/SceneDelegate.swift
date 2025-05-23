@@ -8,13 +8,15 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+	var currentScene: UIScene?
 	var window: UIWindow?
 
 	func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+		self.currentScene = scene
+
 		guard let windowScene = scene as? UIWindowScene else { return }
 		
 		let window = UIWindow(windowScene: windowScene)
-//		let controller = SYStreamDetailContainerViewController()
 		let controller = SYMenuContainerViewController()
 
 		window.tintColor = .systemGreen

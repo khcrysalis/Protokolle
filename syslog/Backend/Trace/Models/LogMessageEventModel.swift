@@ -18,12 +18,6 @@ struct LogMessageEventModel: Hashable, CustomStringConvertible {
 		self.rawValue = rawValue
 	}
 	
-	private init(displayText: String, codableColor: UIColor?, rawValue: UInt8) {
-		self.displayText = displayText
-		self.displayColor = codableColor
-		self.rawValue = rawValue
-	}
-	
 	init?(_ cLogType: UInt8) {
 		switch cLogType {
 		case 0: 	self = .default
@@ -47,7 +41,7 @@ struct LogMessageEventModel: Hashable, CustomStringConvertible {
 	
 	static func == (lhs: LogMessageEventModel, rhs: LogMessageEventModel) -> Bool {
 		// TODO: - This is probably bad but it works /shrug
-		return lhs.displayText == rhs.displayText && lhs.rawValue == rhs.rawValue
+		lhs.displayText == rhs.displayText && lhs.rawValue == rhs.rawValue
 	}
 	
 	func hash(into hasher: inout Hasher) {
@@ -60,32 +54,32 @@ extension LogMessageEventModel: CaseIterable {
 	// MARK: - Log types
 	static var `default` = LogMessageEventModel(
 		displayText: "Default",
-		codableColor: .systemGray,
-		rawValue: 0x00
+		color: .systemGray,
+		rawValue: 0
 	)
 	
 	static var debug = LogMessageEventModel(
 		displayText: "Debug",
-		codableColor: .systemYellow,
-		rawValue: 0x01
+		color: .systemYellow,
+		rawValue: 1
 	)
 	
 	static var info = LogMessageEventModel(
 		displayText: "Info",
-		codableColor: .systemGray,
-		rawValue: 0x2
-	)
-	
-	static var fault = LogMessageEventModel(
-		displayText: "Fault",
-		codableColor: .systemRed,
-		rawValue: 0x10
+		color: .systemGray,
+		rawValue: 2
 	)
 	
 	static var error = LogMessageEventModel(
 		displayText: "Error",
-		codableColor: .systemRed,
-		rawValue: 0x11
+		color: .systemRed,
+		rawValue: 10
+	)
+	
+	static var fault = LogMessageEventModel(
+		displayText: "Fault",
+		color: .systemRed,
+		rawValue: 11
 	)
 	
 	/// `allCases` can be a ``let`` constant initialized once
@@ -93,7 +87,7 @@ extension LogMessageEventModel: CaseIterable {
 	/// however, we use ``allCasesNonLazily`` for contexts when the items themselves change,
 	/// ie, when reloading PreferencesViewController.
 	static var allCasesNonLazily: [LogMessageEventModel] {
-		return [.default, .info, .debug, .fault, .error]
+		[.default, .info, .debug, .fault, .error]
 	}
 	
 	static let allCases: [LogMessageEventModel] = allCasesNonLazily
@@ -104,17 +98,12 @@ extension LogMessageEventModel: Codable {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 		try container.encode(displayText, forKey: .displayText)
 		try container.encode(rawValue, forKey: .rawValue)
-		
-		if let color = displayColor {
-			try container.encode(CodableColor(uiColor: color), forKey: .color)
-		}
 	}
 	
 	init(from decoder: Decoder) throws {
 		let container = try decoder.container(keyedBy: CodingKeys.self)
 		self.displayText = try container.decode(String.self, forKey: .displayText)
 		self.rawValue = try container.decode(UInt8.self, forKey: .rawValue)
-		self.displayColor = (try? container.decode(CodableColor.self, forKey: .color))?.uiColor
 	}
 }
 
