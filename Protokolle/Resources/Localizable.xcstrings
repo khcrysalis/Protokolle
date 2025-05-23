@@ -1,0 +1,99 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@" : {
+
+    },
+    "About" : {
+
+    },
+    "About %@" : {
+
+    },
+    "Allowed Types" : {
+
+    },
+    "Cancel" : {
+
+    },
+    "Download StosVPN" : {
+
+    },
+    "Enabled" : {
+
+    },
+    "Field" : {
+
+    },
+    "Filters" : {
+
+    },
+    "General" : {
+
+    },
+    "GitHub Repository" : {
+
+    },
+    "Heartbeat" : {
+
+    },
+    "Help" : {
+
+    },
+    "Import Pairing File" : {
+
+    },
+    "Message Threshold" : {
+
+    },
+    "Mode" : {
+
+    },
+    "New Filter" : {
+
+    },
+    "No pairing file found, please import it." : {
+
+    },
+    "Pairing" : {
+
+    },
+    "Pairing File Guide" : {
+
+    },
+    "Refresh Rate" : {
+
+    },
+    "Refresh rate will change how often the messages list will refresh at a time.\n\nWhen the message threshold is succeeded and to avoid any excessive RAM usage we will periodically start deleting previous messages." : {
+
+    },
+    "Restart Heartbeat" : {
+
+    },
+    "Save" : {
+
+    },
+    "Seems like you've gotten your hands on your pairing file!" : {
+
+    },
+    "Status" : {
+
+    },
+    "Support My Work" : {
+
+    },
+    "The heartbeat is activated in the background, it will restart when the app is re-opened or prompted. If the status below is pulsing, that means its healthy." : {
+
+    },
+    "Tunnel & Pairing" : {
+
+    },
+    "Value" : {
+
+    },
+    "Version" : {
+
+    }
+  },
+  "version" : "1.0"
+}
