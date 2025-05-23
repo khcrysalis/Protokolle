@@ -1,0 +1,25 @@
+on:
+  - push
+job:
+  nightly:
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Use Xcode 16.2
+        run: |
+          sudo xcode-select -s /Applications/Xcode_16.2.app/Contents/Developer
+
+      - name: Build
+        run: |
+          agvtool new-version -all $(git rev-parse HEAD)
+          make
+          mkdir upload
+          mv packages/* upload/
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: Protokolle
+          path: upload/*

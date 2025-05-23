@@ -67,6 +67,8 @@ class SystemLogManager: NSObject {
 			guard syslog_relay_connect_tcp(self.heartbeat.provider, &self.syslogClient) == IdeviceSuccess else {
 				throw SYSystemLogError.failedToConnect
 			}
+			
+			NSLog("we're going?")
 					
 			self.isStreaming = true
 			

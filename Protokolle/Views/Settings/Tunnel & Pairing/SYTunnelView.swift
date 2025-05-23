@@ -85,7 +85,7 @@ struct SYTunnelView: View {
 		let fileManager = FileManager.default
 		let dest = URL.documentsDirectory.appendingPathComponent("pairingFile.plist")
 		
-		try? fileManager.removeFileIfNeeded(at: dest)
+		try? fileManager.removeItem(at: url)
 		
 		try? fileManager.copyItem(at: url, to: dest)
 		

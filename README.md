@@ -12,7 +12,6 @@ The iOS/iPadOS equivalent to macOS's `Console.app`. This app uses [idevice](http
 - View system logs with immense detail (i.e. `pid`, `name`, `message`, `sendor`, `date`, `type`).
 - Advanced filtering options for log types, keywords, and process ID's.
 - Performance options for logs, to prevent any excessive ram usage, and general usability of the app.
-- 
 
 ## Download
 
