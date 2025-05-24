@@ -59,11 +59,9 @@ struct SYTunnelView: View {
 			)
 		}
 		.onAppear {
-			if FileManager.default.fileExists(atPath: HeartbeatManager.pairingFile()) {
-				doesHavePairingFile = true
-			} else {
-				doesHavePairingFile = false
-			}
+			doesHavePairingFile = FileManager.default.fileExists(atPath: HeartbeatManager.pairingFile())
+			? true
+			: false
 		}
 	}
 	
@@ -85,8 +83,7 @@ struct SYTunnelView: View {
 		let fileManager = FileManager.default
 		let dest = URL.documentsDirectory.appendingPathComponent("pairingFile.plist")
 		
-		try? fileManager.removeItem(at: url)
-		
+		try? fileManager.removeItem(at: dest)
 		try? fileManager.copyItem(at: url, to: dest)
 		
 		HeartbeatManager.shared.start(true)

@@ -50,14 +50,14 @@ class SYStreamDetailHeaderView: UIView {
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		setup()
+		_setup()
 	}
 	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	private func setup() {
+	private func _setup() {
 		[badgeLabel, nameLabel, senderLabel, timestampLabel].forEach {
 			$0.translatesAutoresizingMaskIntoConstraints = false
 			addSubview($0)

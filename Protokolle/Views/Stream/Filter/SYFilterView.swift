@@ -9,7 +9,7 @@ import SwiftUI
 
 // MARK: - View
 struct SYFilterView: View {
-	@Environment(\.dismiss) private var dismiss
+	@Environment(\.dismiss) var dismiss
 
 	@State var entryFilter = Preferences.entryFilter ?? EntryFilter() {
 		didSet {

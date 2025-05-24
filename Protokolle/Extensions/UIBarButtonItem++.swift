@@ -27,7 +27,7 @@ extension UIBarButtonItem {
 		
 		let image = UIImage(systemName: systemImageName, withConfiguration: config)
 		button.setImage(image, for: .normal)
-		button.addTarget(target, action: action ?? #selector(dummySelector), for: .touchUpInside)
+		button.addTarget(target, action: action ?? #selector(_dummySelector), for: .touchUpInside)
 		button.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
 		
 		if showDot {
@@ -66,5 +66,5 @@ extension UIBarButtonItem {
 		}
 	}
 	
-	@objc private func dummySelector() {}
+	@objc private func _dummySelector() {}
 }

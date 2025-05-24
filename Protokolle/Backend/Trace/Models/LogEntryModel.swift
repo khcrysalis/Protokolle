@@ -10,7 +10,7 @@ import Foundation.NSURL
 #warning("we need.. to make a codableentry for exporting :skull:")
 
 struct LogEntryModel: Hashable {
-	private let id = UUID()
+	private let _id = UUID()
 	
 	var pid: UInt32
 	var timestamp: Int64
@@ -48,10 +48,10 @@ struct LogEntryModel: Hashable {
 	}
 	
 	func hash(into hasher: inout Hasher) {
-		hasher.combine(id)
+		hasher.combine(_id)
 	}
 	
 	static func == (lhs: LogEntryModel, rhs: LogEntryModel) -> Bool {
-		return lhs.id == rhs.id
+		return lhs._id == rhs._id
 	}
 }

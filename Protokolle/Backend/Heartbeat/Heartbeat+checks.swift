@@ -49,7 +49,6 @@ extension HeartbeatManager {
 				return (false, "Failed to connect: \(String(cString: strerror(errno)))")
 			}
 			
-			let writeFds = fd_set()
 			var writeSet = fd_set()
 			__darwin_fd_set(socketFD, &writeSet)
 			

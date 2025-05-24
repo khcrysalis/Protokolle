@@ -14,12 +14,12 @@ class SYMenuContainerViewController: UIViewController {
 	var centerController: UIViewController!
 	var isExpanded = false
 	
-	private var menuWidth: CGFloat {
+	private var _menuWidth: CGFloat {
 		view.bounds.width * (traitCollection.horizontalSizeClass == .regular ? 0.33 : 0.87)
 	}
 	
-	private var menuLeadingConstraint: NSLayoutConstraint!
-	private var menuWidthConstraint: NSLayoutConstraint!
+	private var _menuLeadingConstraint: NSLayoutConstraint!
+	private var _menuWidthConstraint: NSLayoutConstraint!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -58,8 +58,8 @@ class SYMenuContainerViewController: UIViewController {
 		
 		menuController.view.translatesAutoresizingMaskIntoConstraints = false
 		
-		menuLeadingConstraint = menuController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -menuWidth)
-		menuWidthConstraint = menuController.view.widthAnchor.constraint(equalToConstant: menuWidth)
+		_menuLeadingConstraint = menuController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -_menuWidth)
+		_menuWidthConstraint = menuController.view.widthAnchor.constraint(equalToConstant: _menuWidth)
 		
 		let borderView = UIView()
 		borderView.backgroundColor = .systemGray4.withAlphaComponent(0.3)
@@ -67,8 +67,8 @@ class SYMenuContainerViewController: UIViewController {
 		menuController.view.addSubview(borderView)
 		
 		NSLayoutConstraint.activate([
-			menuLeadingConstraint,
-			menuWidthConstraint,
+			_menuLeadingConstraint,
+			_menuWidthConstraint,
 			menuController.view.topAnchor.constraint(equalTo: view.topAnchor),
 			menuController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 			
@@ -88,13 +88,13 @@ class SYMenuContainerViewController: UIViewController {
 			let newSizeClass = self.traitCollection.horizontalSizeClass
 			let newMenuWidth = size.width * (newSizeClass == .regular ? 0.33 : 0.87)
 			
-			self.menuWidthConstraint.constant = newMenuWidth
+			self._menuWidthConstraint.constant = newMenuWidth
 			
 			if self.isExpanded {
-				self.menuLeadingConstraint.constant = 0
+				self._menuLeadingConstraint.constant = 0
 				self.centerController.view.transform = CGAffineTransform(translationX: newMenuWidth, y: 0)
 			} else {
-				self.menuLeadingConstraint.constant = -newMenuWidth
+				self._menuLeadingConstraint.constant = -newMenuWidth
 				self.centerController.view.transform = .identity
 			}
 			
@@ -128,7 +128,7 @@ class SYMenuContainerViewController: UIViewController {
 	@objc func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
 		let translation = gesture.translation(in: view)
 		let velocity = gesture.velocity(in: view)
-		let currentMenuWidth = menuWidth
+		let currentMenuWidth = _menuWidth
 		
 		switch gesture.state {
 		case .began, .changed:
@@ -137,7 +137,7 @@ class SYMenuContainerViewController: UIViewController {
 			dragAmount = max(0, min(currentMenuWidth, dragAmount))
 			let progress = dragAmount / currentMenuWidth
 			
-			menuLeadingConstraint.constant = -currentMenuWidth + dragAmount
+			_menuLeadingConstraint.constant = -currentMenuWidth + dragAmount
 			centerController.view.transform = CGAffineTransform(translationX: dragAmount, y: 0)
 			centerController.view.alpha = 1.0 - (0.7 * progress)
 			
@@ -177,10 +177,10 @@ class SYMenuContainerViewController: UIViewController {
 		generator.prepare()
 		
 		// Get current menu width
-		let currentMenuWidth = menuWidth
+		let currentMenuWidth = _menuWidth
 		
 		if shouldExpand {
-			menuLeadingConstraint.constant = 0
+			_menuLeadingConstraint.constant = 0
 			
 			UIView.animate(
 				withDuration: 0.5,
@@ -196,7 +196,7 @@ class SYMenuContainerViewController: UIViewController {
 				}
 			)
 		} else {
-			menuLeadingConstraint.constant = -currentMenuWidth
+			_menuLeadingConstraint.constant = -currentMenuWidth
 			
 			UIView.animate(
 				withDuration: 0.5,

@@ -17,14 +17,14 @@ struct TextFilter: Codable, Hashable {
     
     let mode: Mode
     var text: String
-    private var comparor: (String) -> Bool
+    private var _comparor: (String) -> Bool
     
     func matches(_ str: String) -> Bool {
-        comparor(str)
+        _comparor(str)
     }
     
     func matches(_ optionalStr: String?) -> Bool {
-        if let optionalStr { return comparor(optionalStr) }
+        if let optionalStr { return _comparor(optionalStr) }
         return false
     }
     
@@ -39,27 +39,27 @@ struct TextFilter: Codable, Hashable {
         // (not wanting the switch to happen *every time* a entry passes when a filter is active)
         switch mode {
         case .equalTo:
-            comparor = { other in
+            _comparor = { other in
                 return text == other
             }
         case .notEqualTo:
-            comparor = { other in
+            _comparor = { other in
                 return text != other
             }
         case .contains:
-            comparor = { other in
+            _comparor = { other in
                 return other.contains(text)
             }
         case .doesntContain:
-            comparor = { other in
+            _comparor = { other in
                 return !other.contains(text)
             }
         case .startsWith:
-            comparor = { other in
+            _comparor = { other in
                 return other.starts(with: text)
             }
         case .endsWith:
-            comparor = { other in
+            _comparor = { other in
                 return other.hasSuffix(text)
             }
         }

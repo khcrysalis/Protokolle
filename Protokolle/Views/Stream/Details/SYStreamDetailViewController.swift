@@ -29,7 +29,7 @@ extension SYStreamDetailViewController {
 class SYStreamDetailViewController: UICollectionViewController {
 	typealias CollectionDataSource = UICollectionViewDiffableDataSource<Int, SYCollectionItem>
 	
-	private var data: [SYCollectionItem] = []
+	private var _data: [SYCollectionItem] = []
 	
 	var entry: LogEntryModel
 	var dataSource: CollectionDataSource!
@@ -48,7 +48,7 @@ class SYStreamDetailViewController: UICollectionViewController {
 		
 		let font = UIFont.monospacedSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .body).pointSize, weight: .regular)
 		
-		data = [
+		_data = [
 			SYCollectionItem(key: .localized("Message"), subItems: [
 				SYCollectionItem(key: entry.message ?? "", font: font)
 			]),
@@ -82,35 +82,33 @@ class SYStreamDetailViewController: UICollectionViewController {
 	func setupCollectionView() {
 		collectionView.allowsSelection = false
 	}
-	
-	#warning("private api usage")
+	#warning("fix header constaints for date/sender")
 	
 	func setupNavigation() {
 		let appearance = UINavigationBarAppearance()
 		navigationController?.navigationBar.standardAppearance = appearance
 		navigationController?.navigationBar.scrollEdgeAppearance = appearance
 		
-		let titleViewClass = NSClassFromString("_UINavigationBarTitleView") as! UIView.Type
-		let titleView = titleViewClass.init()
-		navigationItem.titleView = titleView
+		let titleView = navigationItem.setupNavigationTitleView()
 		
-		let avatarView = SYStreamDetailHeaderView()
-		avatarView.configure(with: entry)
-		avatarView.translatesAutoresizingMaskIntoConstraints = false
-		titleView.addSubview(avatarView)
+		let headerView = SYStreamDetailHeaderView()
+		headerView.configure(with: entry)
+		headerView.translatesAutoresizingMaskIntoConstraints = false
+		titleView.addSubview(headerView)
+		
+		let padding: CGFloat = 27
 		
 		NSLayoutConstraint.activate([
-			avatarView.topAnchor.constraint(equalTo: titleView.topAnchor, constant: 27),
-			avatarView.leadingAnchor.constraint(equalTo: titleView.leadingAnchor),
-			avatarView.trailingAnchor.constraint(equalTo: titleView.trailingAnchor),
-			avatarView.bottomAnchor.constraint(equalTo: titleView.bottomAnchor)
+			headerView.topAnchor.constraint(equalTo: titleView.topAnchor, constant: padding),
+			headerView.leadingAnchor.constraint(equalTo: titleView.leadingAnchor),
+			headerView.trailingAnchor.constraint(equalTo: titleView.trailingAnchor),
+			headerView.bottomAnchor.constraint(equalTo: titleView.bottomAnchor)
 		])
 		
 		let targetSize = CGSize(width: view.frame.width, height: UIView.layoutFittingCompressedSize.height)
-		let height = avatarView.systemLayoutSizeFitting(targetSize).height + 27
+		let height = headerView.systemLayoutSizeFitting(targetSize).height + padding
 		
-		let setHeightSelector = NSSelectorFromString("setHeight:")
-		navigationItem.titleView?.perform(setHeightSelector, with: height)
+		navigationItem.setHeightForNavigationTitleView(with: height)
 	}
 	
 	func setupDataSource() {
@@ -154,14 +152,14 @@ class SYStreamDetailViewController: UICollectionViewController {
 		}
 		
 		var mainSnapshot = NSDiffableDataSourceSnapshot<Int, SYCollectionItem>()
-		for (sectionIndex, parentItem) in data.enumerated() {
+		for (sectionIndex, parentItem) in _data.enumerated() {
 			mainSnapshot.appendSections([sectionIndex])
 			mainSnapshot.appendItems([parentItem], toSection: sectionIndex)
 		}
 		
 		dataSource.apply(mainSnapshot, animatingDifferences: false)
 		
-		for (sectionIndex, parentItem) in data.enumerated() {
+		for (sectionIndex, parentItem) in _data.enumerated() {
 			var sectionSnapshot = NSDiffableDataSourceSectionSnapshot<SYCollectionItem>()
 			sectionSnapshot.append([parentItem])
 			sectionSnapshot.append(parentItem.subItems, to: parentItem)

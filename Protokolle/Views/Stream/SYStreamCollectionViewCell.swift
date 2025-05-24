@@ -28,7 +28,7 @@ class SYStreamCollectionViewCell: UICollectionViewCell {
 		return nameLabel
 	}()
 	
-	private let dotView: UIView = {
+	let dotView: UIView = {
 		let view = UIView()
 		view.translatesAutoresizingMaskIntoConstraints = false
 		view.layer.cornerRadius = 5
@@ -40,7 +40,7 @@ class SYStreamCollectionViewCell: UICollectionViewCell {
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		setup()
+		_setup()
 	}
 	
 	required init?(coder: NSCoder) {
@@ -53,11 +53,11 @@ class SYStreamCollectionViewCell: UICollectionViewCell {
 	
 	override var isSelected: Bool {
 		didSet {
-			updateSelectionAppearance()
+			_updateSelectionAppearance()
 		}
 	}
 	
-	private func updateSelectionAppearance() {
+	private func _updateSelectionAppearance() {
 		if isSelected {
 			backgroundColor = .systemGray.withAlphaComponent(0.4)
 		} else {
@@ -65,7 +65,7 @@ class SYStreamCollectionViewCell: UICollectionViewCell {
 		}
 	}
 	
-	private func setup() {
+	private func _setup() {
 		backgroundColor = .quaternarySystemFill
 		clipsToBounds = true
 		
