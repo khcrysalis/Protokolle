@@ -6,12 +6,20 @@
 
 The iOS/iPadOS equivalent to macOS's `Console.app`. This app uses [idevice](https://github.com/jkcoxson/idevice) and lockdownd pairing to stream messages from the trace relay, allowing you to see messages from other processes within iOS. Along with having advanced filtering and options for advanced debugging and performance.
 
+### Demo
+
+|					![Demo of streaming trace logs](Images/demo.webp)						 |
+| :----------------------------------------------------------------------------------------: |
+| Demo of streaming trace logs from [Feather-idevice](https://github.com/khcrysalis/feather) |
+
 ### Features
 
 - Stream system logs (messages)
 - View system logs with immense detail (i.e. `pid`, `name`, `message`, `sendor`, `date`, `type`).
 - Advanced filtering options for log types, keywords, and process ID's.
 - Performance options for logs, to prevent any excessive ram usage, and general usability of the app.
+- Ability to import/export logs to be viewed later.
+- Of course, open source and free.
 
 ## Download
 
@@ -71,6 +79,6 @@ Using the makefile will automatically create an adhoc ipa inside the packages di
 
 ## License 
 
-This project is licensed under the GPL-3.0 license. You can see the full details of the license [here](https://github.com/khcrysalis/Feather/blob/main/LICENSE).
+This project is licensed under the GPL-3.0 license. You can see the full details of the license [here](https://github.com/khcrysalis/Feather/blob/main/LICENSE). Code from Antoine is going to be under MIT, if you figure out where that is.
 
 By contributing to this project, you agree to license your code under the GPL-3.0 license as well (including agreeing to license exceptions), ensuring that your work, like all other contributions, remains freely accessible and open.
