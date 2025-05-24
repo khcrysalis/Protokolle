@@ -145,6 +145,17 @@
         }
       }
     },
+    "Export" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export"
+          }
+        }
+      }
+    },
     "Field" : {
       "extractionState" : "manual",
       "localizations" : {

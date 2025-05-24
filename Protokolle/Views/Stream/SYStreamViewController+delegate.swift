@@ -9,8 +9,8 @@ import UIKit
 
 // MARK: - Class extension: SystemLogManagerDelegate
 extension SYStreamViewController: SystemLogManagerDelegate {
-	func activityStream(didRecieveEntry entry: LogEntryModel) {
-		if filter?.entryPassesFilter(entry) ?? true {
+	func activityStream(didRecieveEntry entry: LogEntry) {
+		if filter?.entryPassesFilter(entry.log) ?? true {
 			batch.append(entry)
 		}
 	}

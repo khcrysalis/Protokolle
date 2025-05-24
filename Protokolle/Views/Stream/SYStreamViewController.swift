@@ -11,8 +11,8 @@ import SwiftUI
 // MARK: - Class
 class SYStreamViewController: UICollectionViewController {
 	typealias StreamDataSourceSection = Int
-	typealias StreamDataSource = UICollectionViewDiffableDataSource<StreamDataSourceSection, LogEntryModel>
-	typealias StepDataSourceSnapshot = NSDiffableDataSourceSnapshot<StreamDataSourceSection, LogEntryModel>
+	typealias StreamDataSource = UICollectionViewDiffableDataSource<StreamDataSourceSection, LogEntry>
+	typealias StepDataSourceSnapshot = NSDiffableDataSourceSnapshot<StreamDataSourceSection, LogEntry>
 	
 	var dataSource: StreamDataSource!
 	
@@ -62,7 +62,7 @@ class SYStreamViewController: UICollectionViewController {
 	var userInformedAboutThreshold: Bool = false
 	var menuDelegate: SYMenuContainerViewDelegate?
 	
-	var batch: [LogEntryModel] = []
+	var batch: [LogEntry] = []
 	var buffer = Preferences.bufferLimit
 	var filter: EntryFilter? = Preferences.entryFilter
 	
@@ -111,11 +111,11 @@ class SYStreamViewController: UICollectionViewController {
 	}
 	
 	func setupDataSource() {
-		let cellRegistration = UICollectionView.CellRegistration<SYStreamCollectionViewCell, LogEntryModel> { cell, indexPath, itemIdentifier in
-			cell.configure(with: itemIdentifier)
+		let cellRegistration = UICollectionView.CellRegistration<SYStreamCollectionViewCell, LogEntry> { cell, indexPath, entry in
+			cell.configure(with: entry.log)
 		}
-		dataSource = StreamDataSource(collectionView: collectionView) { collectionView, indexPath, itemIdentifier in
-			return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
+		dataSource = StreamDataSource(collectionView: collectionView) { collectionView, indexPath, entry in
+			return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: entry)
 		}
 		var snapshot = dataSource.snapshot()
 		snapshot.appendSections([0])
@@ -231,18 +231,25 @@ extension SYStreamViewController {
 		return UIContextMenuConfiguration(
 			identifier: indexPath as NSCopying,
 			previewProvider: {
-				SYStreamDetailViewController(with: entry)
+				SYStreamDetailViewController(with: entry.log)
 			}
 		) { _ in
 			let copyProcess = UIAction(
 				title: .localized("Copy Process"),
 				image: UIImage(systemName: "doc.on.clipboard")
 			) { _ in
-				UIPasteboard.general.string = entry.processName
+				UIPasteboard.general.string = entry.log.processName
 			}
 			
-			let hideItems = self.setupFilterActions(for: entry, hide: true)
-			let showItems = self.setupFilterActions(for: entry, hide: false)
+			let exportProcess = UIAction(
+				title: .localized("Export"),
+				image: UIImage(systemName: "square.and.arrow.up")
+			) { _ in
+				self.export(entry: entry.log)
+			}
+			
+			let hideItems = self.setupFilterActions(for: entry.log, hide: true)
+			let showItems = self.setupFilterActions(for: entry.log, hide: false)
 			
 			let hideMenu = UIMenu(title: .localized("Hide.."), options: .singleSelection, children: hideItems)
 			let showMenu = UIMenu(title: .localized("Show.."), options: .singleSelection, children: showItems)
@@ -250,7 +257,7 @@ extension SYStreamViewController {
 			let filterMenus = UIMenu( options: .displayInline, children: [hideMenu, showMenu])
 
 			
-			return UIMenu(children: [copyProcess, filterMenus])
+			return UIMenu(children: [copyProcess, filterMenus, exportProcess])
 		}
 	}
 		
@@ -266,7 +273,7 @@ extension SYStreamViewController {
 		guard let entry = dataSource.itemIdentifier(for: indexPath) else { return }
 		
 		collectionView.deselectItem(at: indexPath, animated: true)
-		self.presentEntryController(using: SYStreamDetailViewController(with: entry))
+		self.presentEntryController(using: SYStreamDetailViewController(with: entry.log))
 	}
 	
 	@available(iOS 17.0, *)
@@ -279,12 +286,14 @@ extension SYStreamViewController {
 			if isStreaming {
 				buttonConfiguration = .borderedProminent()
 				buttonConfiguration.baseBackgroundColor = nil
+				buttonConfiguration.title = .localized("Stop Streaming")
 			} else {
 				buttonConfiguration = .bordered()
 				buttonConfiguration.baseBackgroundColor = .quaternarySystemFill
+				buttonConfiguration.title = .localized("Start Streaming")
 			}
+			
 			buttonConfiguration.cornerStyle = .capsule
-			buttonConfiguration.title = isStreaming ? .localized("Stop Streaming") : .localized("Start Streaming")
 			
 			var empty = UIContentUnavailableConfiguration.empty()
 			empty.background.backgroundColor = .systemBackground
@@ -374,5 +383,31 @@ extension SYStreamViewController {
 		}
 		
 		Preferences.entryFilter = entryFilter
+	}
+}
+
+// MARK: - Class extension: Export
+extension SYStreamViewController {
+	func export(entry: LogEntryModel) {
+		let fileManager = FileManager.default
+		let encoder = JSONEncoder()
+		encoder.outputFormatting = [.prettyPrinted, .withoutEscapingSlashes, .sortedKeys]
+		
+		guard let data = try? encoder.encode(CodableLogEntry(log: entry)) else {
+			return
+		}
+		
+		let fileName = "\(entry.processName ?? "Unknown")_\(entry.timestamp).protokolle"
+		let fileURL = fileManager.exports.appendingPathComponent(fileName)
+		
+		guard fileManager.createFile(atPath: fileURL.path, contents: data) else {
+			return
+		}
+		
+		let activityVC = UIActivityViewController(activityItems: [fileURL], applicationActivities: nil)
+		activityVC.popoverPresentationController?.sourceView = view
+		activityVC.popoverPresentationController?.sourceRect = CGRect(x: view.bounds.midX, y: view.bounds.midY, width: 0, height: 0)
+		
+		present(activityVC, animated: true)
 	}
 }

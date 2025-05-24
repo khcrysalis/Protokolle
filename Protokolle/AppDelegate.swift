@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
-		_summonDocumentsDirectory()
+		_createDocumentsDirectory()
 		return true
 	}
 
@@ -31,13 +31,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Use this method to release any resources that were specific to the discarded scenes, as they will not return.
 	}
 	
-	private func _summonDocumentsDirectory() {
+	private func _createDocumentsDirectory() {
 		let fileManager = FileManager.default
-		let keepURL = URL.documentsDirectory.appendingPathComponent("howToUse.txt")
+		let directory = fileManager.exports
 		
-		if !fileManager.fileExists(atPath: keepURL.path()) {
-			fileManager.createFile(atPath: keepURL.path(), contents: .none)
-		}
+		try? fileManager.createDirectory(
+			at: directory,
+			withIntermediateDirectories: true,
+			attributes: nil
+		)
 	}
 }
 

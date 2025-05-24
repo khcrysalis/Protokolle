@@ -8,6 +8,6 @@
 import UIKit
 
 protocol SystemLogManagerDelegate: AnyObject {
-	func activityStream(didRecieveEntry entry: LogEntryModel)
+	func activityStream(didRecieveEntry entry: LogEntry)
 	func activityStream(didRecieveString entryString: String)
 }

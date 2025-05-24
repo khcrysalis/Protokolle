@@ -24,6 +24,32 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		window.makeKeyAndVisible()
 		self.window = window
 	}
+	
+	func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+		guard
+			let url = URLContexts.first?.url,
+			url.pathExtension == "protokolle"
+		else {
+			return
+		}
+		
+		guard
+			let data = try? Data(contentsOf: url),
+			let decoded = try? JSONDecoder().decode(CodableLogEntry.self, from: data),
+			let topController = UIApplication.topViewController()
+		else {
+			return
+		}
+		
+		let controller = UINavigationController(
+			rootViewController: SYStreamDetailViewController(with: decoded.log)
+		)
+		
+		topController.present(
+			controller,
+			animated: true
+		)
+	}
 
 	func sceneDidDisconnect(_ scene: UIScene) {
 		// Called as the scene is being released by the system.

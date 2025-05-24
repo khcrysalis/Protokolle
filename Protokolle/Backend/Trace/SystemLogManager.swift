@@ -125,7 +125,7 @@ class SystemLogManager: NSObject {
 				
 				if result == IdeviceSuccess, let oslogg = oslogg {
 					let logCopy = oslogg.pointee
-					let model = LogEntryModel(logCopy)
+					let model = LogEntry(logCopy)
 					self.delegate?.activityStream(didRecieveEntry: model)
 					os_trace_relay_free_log(oslogg)
 				} else if result != IdeviceSuccess {

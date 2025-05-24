@@ -9,8 +9,8 @@ import Foundation.NSURL
 
 #warning("we need.. to make a codableentry for exporting :skull:")
 
-struct LogEntryModel: Hashable {
-	private let _id = UUID()
+struct LogEntryModel: Hashable, Codable {
+	private var _id = UUID()
 	
 	var pid: UInt32
 	var timestamp: Int64
@@ -20,19 +20,8 @@ struct LogEntryModel: Hashable {
 	var processPath: String?
 	var processName: String?
 	var message: String?
-	var label: EntryLabel?
+	var label: LogEntryModel.EntryLabel?
 	var type: LogMessageEventModel?
-	
-	struct EntryLabel: Hashable {
-		var subsystem: String?
-		var category: String?
-		
-		init(from label: UnsafePointer<SyslogLabel>?) {
-			guard let label = label?.pointee else { return }
-			self.subsystem = label.subsystem.flatMap { String(cString: $0) }
-			self.category = label.category.flatMap { String(cString: $0) }
-		}
-	}
 	
 	init(_ log: OsTraceLog) {
 		self.pid = log.pid
@@ -43,7 +32,7 @@ struct LogEntryModel: Hashable {
 		self.processPath = log.filename.flatMap { String(validatingUTF8: $0) }
 		self.processName = self.processPath.flatMap { URL(string: $0)?.lastPathComponent }
 		self.message = log.message.flatMap { String(validatingUTF8: $0) }
-		self.label = EntryLabel(from: log.label)
+		self.label = LogEntryModel.EntryLabel(from: log.label)
 		self.type = LogMessageEventModel(level)
 	}
 	
@@ -53,5 +42,18 @@ struct LogEntryModel: Hashable {
 	
 	static func == (lhs: LogEntryModel, rhs: LogEntryModel) -> Bool {
 		return lhs._id == rhs._id
+	}
+}
+
+extension LogEntryModel {
+	struct EntryLabel: Hashable, Codable {
+		var subsystem: String?
+		var category: String?
+		
+		init(from label: UnsafePointer<SyslogLabel>?) {
+			guard let label = label?.pointee else { return }
+			self.subsystem = label.subsystem.flatMap { String(cString: $0) }
+			self.category = label.category.flatMap { String(cString: $0) }
+		}
 	}
 }
