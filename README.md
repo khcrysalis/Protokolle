@@ -24,7 +24,7 @@ The iOS/iPadOS equivalent to macOS's `Console.app`. This app uses [idevice](http
 
 ## Download
 
-To be added...
+Visit [releases](https://github.com/khcrysalis/Protokolle/releases) and get the latest `.ipa`.
 
 ## How does it work?
 - Establish a heartbeat with a TCP provider (the app will need this for later).
