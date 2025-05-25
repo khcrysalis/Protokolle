@@ -19,7 +19,7 @@ class TunnelManager: ObservableObject {
     private var tunnelDeviceIp: String = "10.7.0.0"
     private var tunnelFakeIp: String = "10.7.0.1"
     private var tunnelSubnetMask: String = "255.255.255.0"
-    private var tunnelBundleId: String = Bundle.main.bundleIdentifier!.appending(".TunnelProv")
+    private var tunnelBundleId: String = Bundle.main.bundleIdentifier!.appending(".ProtokolleTunnel")
     
     enum TunnelStatus: String {
         case disconnected = "Disconnected"

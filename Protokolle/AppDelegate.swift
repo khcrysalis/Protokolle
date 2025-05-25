@@ -15,7 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
 		_createDocumentsDirectory()
-		if Bundle.main.appStoreReceiptExists { tunnel.startVPN() }
+		
+		#if DISTRIBUTION
+		tunnel.startVPN()
+		#endif
 		return true
 	}
 
