@@ -2,13 +2,6 @@
 //  PacketTunnelProvider.swift
 //  TunnelProv
 //
-//  Created by Stephen on 4/16/25.
-//
-
-//
-//  PacketTunnelProvider.swift
-//  TunnelProv
-//
 //  Created by Stossy11 on 28/03/2025.
 //
 
@@ -69,9 +62,6 @@ class PacketTunnelProvider: NEPacketTunnelProvider {
 					modifiedPacket = self.packetReplaceIp(packet, self.tunnelDeviceIp, self.tunnelFakeIp, self.tunnelFakeIp, self.tunnelDeviceIp)
 				}
 				
-				NSLog("wow \(modifiedPacket)")
-				
-				// Ensure packet has at least 20 bytes before swapping
 				if modifiedPacket.count >= 20 {
 					var mutableBytes = [UInt8](modifiedPacket)
 					
