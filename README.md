@@ -24,7 +24,7 @@ The iOS/iPadOS equivalent to macOS's `Console.app`. This app uses [idevice](http
 
 ## Download
 
-To be added...
+Visit [releases](https://github.com/khcrysalis/Protokolle/releases) and get the latest `.ipa`.
 
 ## How does it work?
 - Establish a heartbeat with a TCP provider (the app will need this for later).
@@ -34,7 +34,7 @@ To be added...
 - When preparing the stream, we need to establish another connection but for `syslog_relay` using our TCP provider and heartbeat provider.
 - Then using out connection use a loop to get each message and feed it to a delegate, where its used to update our UI.
 
-Due to how it works right now we need both a VPN and a lockdownd pairing file, this means you will need a computer for its initial setup. Though, if you don't want to do these you can just use the server way of installing instead (but at a cost of less reliability). 
+Due to how it works right now we need both a VPN and a lockdownd pairing file, this means you will need a computer for its initial setup.
 
 ## Building
 
