@@ -10,12 +10,13 @@ import CoreLocation
 
 /// A set of user controlled preferences.
 enum Preferences {
+	/// Stream refresh speed
     @Storage(key: "SY.refreshSpeed", defaultValue: 1.0, callback: refreshSpeedCallback)
     static var refreshSpeed: Double
-	
+	/// Stream buffer limit
 	@Storage(key: "SY.bufferLimit", defaultValue: 75000, callback: bufferLimitCallback)
 	static var bufferLimit: Int
-	
+	/// Users custom filters set
 	@CodableStorage(key: "SY.entryFilter", defaultValue: nil, handler: { _, newValue in
 		NotificationCenter.default.post(
 			Notification(name: .entryFilterDidChange, object: newValue)

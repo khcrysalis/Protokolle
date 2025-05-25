@@ -7,6 +7,7 @@
 
 import UIKit
 
+// MARK: - Class extension: - Log Error
 extension SystemLogManager {
 	enum SYSystemLogError: Error, LocalizedError {
 		case missingPairing
@@ -23,6 +24,7 @@ extension SystemLogManager {
 	}
 }
 
+// MARK: - Class
 class SystemLogManager: NSObject {
 	static let shared = SystemLogManager()
 	let heartbeat = HeartbeatManager.shared
@@ -45,8 +47,7 @@ class SystemLogManager: NSObject {
 	
 	weak var delegate: SystemLogManagerDelegate?
 
-	
-	func connect() async throws {
+	private func _connect() async throws {
 		guard FileManager.default.fileExists(atPath: HeartbeatManager.pairingFile()) else {
 			throw SYSystemLogError.missingPairing
 		}
@@ -59,10 +60,10 @@ class SystemLogManager: NSObject {
 			throw SYSystemLogError.missingPairing
 		}
 	}
-	
+	/// Connects to syslog relay
 	func syslog_relay() async throws {
 		try await Task.detached(priority: .utility) {
-			try await self.connect()
+			try await self._connect()
 			
 			guard syslog_relay_connect_tcp(self.heartbeat.provider, &self.syslogClient) == IdeviceSuccess else {
 				throw SYSystemLogError.failedToConnect
@@ -80,6 +81,9 @@ class SystemLogManager: NSObject {
 				var logLinePointer: UnsafeMutablePointer<CChar>? = nil
 				let result = syslog_relay_next(syslogClient, &logLinePointer)
 				
+				// This may crash due to accessing an invalid pointer
+				// don't know how to fix it yet! If you do know how
+				// to fix it, please tell me!!!
 				if result == IdeviceSuccess, let logLinePointer = logLinePointer {
 					if let logLine = String(validatingUTF8: logLinePointer) {
 						self.delegate?.activityStream(didRecieveString: logLine)
@@ -100,10 +104,10 @@ class SystemLogManager: NSObject {
 			self.isStreaming = false
 		}.value
 	}
-	
+	/// Connects to os trace relay, this is the backbone of our app
 	func os_trace_relay() async throws {
 		try await Task.detached(priority: .utility) {
-			try await self.connect()
+			try await self._connect()
 			
 			guard os_trace_relay_connect_tcp(self.heartbeat.provider, &self.osTraceRelayClient) == IdeviceSuccess else {
 				throw SYSystemLogError.failedToConnect
@@ -142,7 +146,7 @@ class SystemLogManager: NSObject {
 			}
 		}.value
 	}
-	
+	/// Stops streaming
 	func stop() {
 		isStreaming = false
 	}

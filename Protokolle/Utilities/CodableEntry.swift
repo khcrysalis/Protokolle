@@ -33,9 +33,7 @@ class LogEntry: LogEntryDelegate, Hashable {
 	init(_ log: OsTraceLog) {
 		self.log = LogEntryModel(log)
 	}
-	
-	// MARK: - Hashable Conformance
-	
+		
 	static func == (lhs: LogEntry, rhs: LogEntry) -> Bool {
 		return lhs.log == rhs.log
 	}

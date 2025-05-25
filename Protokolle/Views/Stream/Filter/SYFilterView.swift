@@ -68,7 +68,7 @@ extension SYFilterView {
 	private func _add() -> some View {
 		Section {
 			Button(.localized("New Filter")) {
-				let blankFilter = EntryFilter.CustomFilter(type: .any, mode: .contains)
+				let blankFilter = EntryFilter.CustomFilter()
 				entryFilter.customFilters.append(blankFilter)
 			}
 			

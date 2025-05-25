@@ -7,20 +7,28 @@
 
 import Foundation.NSURL
 
-#warning("we need.. to make a codableentry for exporting :skull:")
-
+/// Entry Model
 struct LogEntryModel: Hashable, Codable {
 	private var _id = UUID()
-	
+	/// PID (i.e. `0`)
 	var pid: UInt32
+	/// Timestamp (i.e. `1748042868`)
 	var timestamp: Int64
+	/// Level (i.e. `2`, which means debug)
 	var level: UInt8
+	/// Sender path (i.e. `/System/Library/Frameworks/MediaPlayer.framework/Versions/A/MediaPlayer`)
 	var senderPath: String?
+	/// Sender name (i.e. `MediaPlayer`)
 	var senderName: String?
+	/// Process path (i.e. `/Applications/Google Chrome.app/Contents/MacOS/Google Chrome`)
 	var processPath: String?
+	/// Process name (i.e. `Google Chrome`)
 	var processName: String?
+	/// Entry message
 	var message: String?
+	/// "Label", contains `Subsystem & Category`
 	var label: LogEntryModel.EntryLabel?
+	
 	var type: LogMessageEventModel?
 	
 	init(_ log: OsTraceLog) {
@@ -46,8 +54,11 @@ struct LogEntryModel: Hashable, Codable {
 }
 
 extension LogEntryModel {
+	/// Entry Label Model
 	struct EntryLabel: Hashable, Codable {
+		/// Subsytem of the entry
 		var subsystem: String?
+		/// Category of the entry
 		var category: String?
 		
 		init(from label: UnsafePointer<SyslogLabel>?) {

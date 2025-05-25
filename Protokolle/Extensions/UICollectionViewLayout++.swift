@@ -8,6 +8,7 @@
 import UIKit.UICollectionViewLayout
 
 extension UICollectionViewLayout {
+	/// UICollectionViewLayout padded style
 	static func padded() -> UICollectionViewLayout {
 		let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(76))
 		let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -21,7 +22,7 @@ extension UICollectionViewLayout {
 		
 		return UICollectionViewCompositionalLayout(section: section)
 	}
-	
+	/// UICollectionViewLayout custom style for insetGrouped
 	static func insetGroupedSidebar() -> UICollectionViewLayout {
 		var listConfiguration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
 		listConfiguration.headerMode = .firstItemInSection

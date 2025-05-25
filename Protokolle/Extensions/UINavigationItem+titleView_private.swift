@@ -8,6 +8,8 @@
 import UIKit.UINavigationItem
 
 extension UINavigationItem {
+	/// Setup for our custom navigation header
+	/// - Returns: Custom view constructed by `_UINavigationBarTitleView`
 	func setupNavigationTitleView() -> UIView {
 		let classNameBase64 = "X1VJTmF2aWdhdGlvbkJhclRpdGxlVmlldw==" // _UINavigationBarTitleView
 		
@@ -23,7 +25,8 @@ extension UINavigationItem {
 		self.titleView = titleView
 		return titleView
 	}
-	
+	/// Set height for custom navigation header
+	/// - Parameter height: Height of the view
 	func setHeightForNavigationTitleView(with height: CGFloat) {
 		let selectorBase64 = "c2V0SGVpZ2h0Og==" // setHeight:
 		
