@@ -26,11 +26,6 @@ extension Bundle {
 		
 		return object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? ""
 	}
-	/// Check if this app is from the App Store
-	var appStoreReceiptExists: Bool {
-		guard let receiptURL = Self.main.appStoreReceiptURL else { return false }
-		return FileManager.default.fileExists(atPath: receiptURL.path)
-	}
 	/// Get the icon of the app
 	var iconFileName: String? {
 		if
