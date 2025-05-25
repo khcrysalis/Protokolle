@@ -9,7 +9,7 @@ import Foundation.NSBundle
 
 extension Bundle {
 	/// Get the name of the app
-	public var name: String {
+	var name: String {
 		if let displayName = object(forInfoDictionaryKey: "CFBundleDisplayName") as? String {
 			return displayName
 		}
@@ -18,18 +18,21 @@ extension Bundle {
 		}
 		return object(forInfoDictionaryKey: "CFBundleExecutable") as? String ?? ""
 	}
-	
 	/// Get the "short" version of the app
-	public var version: String {
+	var version: String {
 		if let version = object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
 			return version
 		}
 		
 		return object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? ""
 	}
-	
+	/// Check if this app is from the App Store
+	var appStoreReceiptExists: Bool {
+		guard let receiptURL = Self.main.appStoreReceiptURL else { return false }
+		return FileManager.default.fileExists(atPath: receiptURL.path)
+	}
 	/// Get the icon of the app
-	public var iconFileName: String? {
+	var iconFileName: String? {
 		if
 			let icons = object(forInfoDictionaryKey: "CFBundleIcons") as? [String: Any],
 			let primary = icons["CFBundlePrimaryIcon"] as? [String: Any],
