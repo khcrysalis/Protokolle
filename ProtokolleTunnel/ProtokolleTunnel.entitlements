@@ -6,7 +6,9 @@
 	<array>
 		<string>packet-tunnel-provider</string>
 	</array>
-	<key>get-task-allow</key>
-	<true/>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.thewonderofyou.syslog</string>
+	</array>
 </dict>
 </plist>

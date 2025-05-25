@@ -19,6 +19,7 @@ The iOS/iPadOS equivalent to macOS's `Console.app`. This app uses [idevice](http
 - Advanced filtering options for log types, keywords, and process ID's.
 - Performance options for logs, to prevent any excessive ram usage, and general usability of the app.
 - Ability to import/export logs to be viewed later.
+- Built-in tunnel VPN for making usage easier.
 - Of course, open source and free.
 
 ## Download

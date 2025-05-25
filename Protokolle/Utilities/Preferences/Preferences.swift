@@ -17,7 +17,6 @@ enum Preferences {
 	static var bufferLimit: Int
 	
 	@CodableStorage(key: "SY.entryFilter", defaultValue: nil, handler: { _, newValue in
-		print("balls??")
 		NotificationCenter.default.post(
 			Notification(name: .entryFilterDidChange, object: newValue)
 		)

@@ -10,10 +10,12 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	let heartbeart = HeartbeatManager.shared
+	let tunnel = TunnelManager.shared
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
 		_createDocumentsDirectory()
+		tunnel.startVPN()
 		return true
 	}
 
