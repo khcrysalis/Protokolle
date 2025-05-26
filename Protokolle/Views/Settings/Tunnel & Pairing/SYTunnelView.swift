@@ -45,6 +45,9 @@ struct SYTunnelView: View {
 						}
 					}
 				}
+				Button(.localized("Enable VPN"), systemImage: "network") {
+					TunnelManager.shared.startVPN()
+				}
 			}
 		}
 		.navigationTitle(.localized("Tunnel & Pairing"))

@@ -134,6 +134,17 @@
         }
       }
     },
+    "Enable VPN" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable VPN"
+          }
+        }
+      }
+    },
     "Enabled" : {
       "extractionState" : "manual",
       "localizations" : {

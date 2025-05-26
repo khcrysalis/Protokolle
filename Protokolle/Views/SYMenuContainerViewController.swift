@@ -15,7 +15,7 @@ class SYMenuContainerViewController: UIViewController {
 	var isExpanded = false
 	
 	private var _menuWidth: CGFloat {
-		view.bounds.width * (traitCollection.horizontalSizeClass == .regular ? 0.33 : 0.87)
+		view.bounds.width * (traitCollection.horizontalSizeClass == .regular ? 0.40 : 0.87)
 	}
 	
 	private var _menuLeadingConstraint: NSLayoutConstraint!
@@ -86,7 +86,7 @@ class SYMenuContainerViewController: UIViewController {
 			guard let self = self else { return }
 			
 			let newSizeClass = self.traitCollection.horizontalSizeClass
-			let newMenuWidth = size.width * (newSizeClass == .regular ? 0.33 : 0.87)
+			let newMenuWidth = size.width * (newSizeClass == .regular ? 0.40 : 0.87)
 			
 			self._menuWidthConstraint.constant = newMenuWidth
 			

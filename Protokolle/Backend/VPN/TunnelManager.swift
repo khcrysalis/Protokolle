@@ -16,8 +16,8 @@ class TunnelManager: ObservableObject {
     static var shared = TunnelManager()
     
     private var vpnManager: NETunnelProviderManager?
-    private var tunnelDeviceIp: String = "10.7.0.0"
-    private var tunnelFakeIp: String = "10.7.0.1"
+    private var tunnelDeviceIp: String = "10.9.0.0"
+    private var tunnelFakeIp: String = "10.9.0.1"
     private var tunnelSubnetMask: String = "255.255.255.0"
     private var tunnelBundleId: String = Bundle.main.bundleIdentifier!.appending(".ProtokolleTunnel")
     
