@@ -110,7 +110,7 @@ extension SYSettingsView {
 			Button(.localized("Pairing File Guide"), systemImage: "questionmark.circle") {
 				UIApplication.open("https://github.com/StephenDev0/StikDebug-Guide/blob/main/pairing_file.md")
 			}
-			#if !DISTRIBUTION
+			#if !APPSTORE
 			Button(.localized("Download StosVPN"), systemImage: "arrow.down.app") {
 				UIApplication.open("https://apps.apple.com/us/app/stosvpn/id6744003051")
 			}
