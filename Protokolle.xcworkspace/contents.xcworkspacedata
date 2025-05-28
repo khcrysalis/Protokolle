@@ -13,4 +13,7 @@
    <FileRef
       location = "container:Protokolle.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:OnboardingKit">
+   </FileRef>
 </Workspace>

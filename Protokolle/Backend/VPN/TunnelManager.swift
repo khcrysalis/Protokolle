@@ -5,6 +5,7 @@
 //  Created by samara on 24.05.2025.
 //
 
+#if APPSTORE
 import Foundation
 import NetworkExtension
 import OSLog
@@ -182,3 +183,4 @@ class TunnelManager: ObservableObject {
 		Logger.vpn.info("Network tunnel stop initiated")
     }
 }
+#endif

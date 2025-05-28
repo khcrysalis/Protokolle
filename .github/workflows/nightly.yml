@@ -1,6 +1,6 @@
 on:
   - push
-job:
+jobs:
   nightly:
     runs-on: macos-15
     steps:

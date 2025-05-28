@@ -46,6 +46,17 @@
         }
       }
     },
+    "Back" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back"
+          }
+        }
+      }
+    },
     "Cancel" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -86,6 +97,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Category & Subsystem"
+          }
+        }
+      }
+    },
+    "Continue" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
           }
         }
       }
@@ -343,6 +365,17 @@
         }
       }
     },
+    "Next Steps" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next Steps"
+          }
+        }
+      }
+    },
     "No Messages" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -405,6 +438,17 @@
     "PID ‘%@‘" : {
       "extractionState" : "manual",
       "shouldTranslate" : false
+    },
+    "Pressing continue will prompt you to allow VPN permissions. This is necessary for the app to function properly. The VPN configuration allows your device to securely connect to itself — nothing more. Rest assured, no data is collected or sent externally. Everything stays on your device." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pressing continue will prompt you to allow VPN permissions. This is necessary for the app to function properly. The VPN configuration allows your device to securely connect to itself — nothing more. Rest assured, no data is collected or sent externally. Everything stays on your device."
+          }
+        }
+      }
     },
     "Process" : {
       "extractionState" : "manual",
@@ -604,6 +648,17 @@
         }
       }
     },
+    "This is a console app designed specifically to be used on mobile. It helps streamline testing by allowing users to view the logs of self-developed apps, without sending data to external servers." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This is a console app designed specifically to be used on mobile. It helps streamline testing by allowing users to view the logs of self-developed apps, without sending data to external servers."
+          }
+        }
+      }
+    },
     "Timestamp (UNIX Time)" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -688,6 +743,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Version"
+          }
+        }
+      }
+    },
+    "Welcome to" : {
+      "comment" : "Welcome to (next word, usually something like Protokolle)",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome to"
           }
         }
       }

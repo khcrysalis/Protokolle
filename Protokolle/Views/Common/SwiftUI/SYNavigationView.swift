@@ -13,7 +13,7 @@ public struct SYNavigationView<Content>: View where Content: View {
 	private var _content: Content
 	
 	public init(
-		_ title: String,
+		_ title: String = "",
 		displayMode: NavigationBarItem.TitleDisplayMode = .automatic,
 		@ViewBuilder content: () -> Content
 	) {

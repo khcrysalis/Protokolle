@@ -10,6 +10,9 @@ import CoreLocation
 
 /// A set of user controlled preferences.
 enum Preferences {
+	/// Onboarding
+	@Storage(key: "SY.isOnboarding", defaultValue: true)
+	static var isOnboarding: Bool
 	/// Stream refresh speed
     @Storage(key: "SY.refreshSpeed", defaultValue: 1.0, callback: refreshSpeedCallback)
     static var refreshSpeed: Double
