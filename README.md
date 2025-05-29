@@ -1,7 +1,6 @@
 # Protokolle
 
 [![GitHub Release](https://img.shields.io/github/v/release/khcrysalis/protokolle?include_prereleases)](https://github.com/khcrysalis/protokolle/releases)
-[![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/khcrysalis/protokolle/total)](https://github.com/khcrysalis/protokolle/releases)
 [![GitHub License](https://img.shields.io/github/license/khcrysalis/protokolle?color=%23C96FAD)](https://github.com/khcrysalis/protokolle/blob/main/LICENSE)
 
 The iOS/iPadOS equivalent to macOS's `Console.app`. This app uses [idevice](https://github.com/jkcoxson/idevice) and lockdownd pairing to stream messages from the trace relay, allowing you to see messages from other processes within iOS. Along with having advanced filtering and options for advanced debugging and performance.
@@ -28,8 +27,8 @@ Visit [releases](https://github.com/khcrysalis/Protokolle/releases) and get the 
 
 ## How does it work?
 - Establish a heartbeat with a TCP provider (the app will need this for later).
-  - For it to be successful, we need a [pairing file](https://github.com/jkcoxson/idevice_pair) and a [VPN](https://apps.apple.com/us/app/stosvpn/id6744003051).
-- Once we have these and the connection was successfully established, we can move on to the streaming part.
+  - For it to be successful, we need a pairing file from [JitterbugPair](https://github.com/osy/Jitterbug/releases) and a [VPN](https://apps.apple.com/us/app/stosvpn/id6744003051).
+  - Once we have these and the connection was successfully established, we can move on to the streaming part.
   - Before streaming, we need to check for the connection to the socket that has been created, routed to `10.7.0.1`, if this succeeds we're ready.
 - When preparing the stream, we need to establish another connection but for `syslog_relay` using our TCP provider and heartbeat provider.
 - Then using out connection use a loop to get each message and feed it to a delegate, where its used to update our UI.
