@@ -97,10 +97,11 @@ extension SYSettingsView {
 			Button(.localized("GitHub Repository"), systemImage: "safari") {
 				UIApplication.open(_githubUrl)
 			}
-			
+			#if !APPSTORE
 			Button(.localized("Support My Work"), systemImage: "heart") {
 				UIApplication.open(_donationsUrl)
 			}
+			#endif
 		}
 	}
 	
