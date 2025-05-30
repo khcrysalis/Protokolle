@@ -7,7 +7,6 @@
 
 import UIKit
 import SwiftUI
-import OnboardingKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	var currentScene: UIScene?
