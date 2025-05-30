@@ -23,7 +23,7 @@ class HeartbeatManager {
 	var heartbeatThread: Thread?
 	
 	var sessionId: UInt32? = nil
-	let ipAddress: String = "10.9.0.1"
+	let ipAddress: String = "10.7.0.1"
 	let port: UInt16 = UInt16(LOCKDOWN_PORT)
 	
 	let restartLock = NSLock()

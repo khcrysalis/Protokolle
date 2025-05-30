@@ -28,19 +28,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		window.rootViewController = controller
 		window.makeKeyAndVisible()
 		self.window = window
-		
-		#if APPSTORE
-		if Preferences.isOnboarding {
-			if let topVC = UIApplication.topViewController() {
-				let onboardingVC = UIHostingController(rootView: OnboardingView())
-				
-				if UIDevice.current.userInterfaceIdiom != .pad {
-					onboardingVC.modalPresentationStyle = .fullScreen
-				}
-				topVC.present(onboardingVC, animated: true)
-			}
-		}
-		#endif
 	}
 	
 	func scene(

@@ -16,11 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
 	) -> Bool {
 		_createDocumentsDirectory()
-		#if APPSTORE
-		if !Preferences.isOnboarding {
-			TunnelManager.shared.startVPN()
-		}
-		#endif
 		return true
 	}
 	

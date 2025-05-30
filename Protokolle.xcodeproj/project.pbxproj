@@ -7,50 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		333D915B2DE3112D0034FD73 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33898B372DE292F40080DC91 /* NetworkExtension.framework */; };
-		333D91632DE3112D0034FD73 /* ProtokolleTunnel.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 333D915A2DE3112D0034FD73 /* ProtokolleTunnel.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		3384EE4C2DE683FD00C05A84 /* OnboardingKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3384EE4B2DE683FD00C05A84 /* OnboardingKit */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		333D91612DE3112D0034FD73 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 33F7C15D2DD51529003FF92B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 333D91592DE3112D0034FD73;
-			remoteInfo = ProtokolleTunnel;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		33898B452DE292F40080DC91 /* Embed Foundation Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				333D91632DE3112D0034FD73 /* ProtokolleTunnel.appex in Embed Foundation Extensions */,
-			);
-			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		333D915A2DE3112D0034FD73 /* ProtokolleTunnel.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ProtokolleTunnel.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		33898B372DE292F40080DC91 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		339C38B52DD544D800545BF4 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		33F7C1652DD51529003FF92B /* Protokolle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Protokolle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		333D91672DE3112D0034FD73 /* Exceptions for "ProtokolleTunnel" folder in "ProtokolleTunnel" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 333D91592DE3112D0034FD73 /* ProtokolleTunnel */;
-		};
 		33F7C1772DD5152C003FF92B /* Exceptions for "Protokolle" folder in "Protokolle" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -61,14 +27,6 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		333D915C2DE3112D0034FD73 /* ProtokolleTunnel */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				333D91672DE3112D0034FD73 /* Exceptions for "ProtokolleTunnel" folder in "ProtokolleTunnel" target */,
-			);
-			path = ProtokolleTunnel;
-			sourceTree = "<group>";
-		};
 		33F7C1672DD51529003FF92B /* Protokolle */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -80,14 +38,6 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		333D91572DE3112D0034FD73 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				333D915B2DE3112D0034FD73 /* NetworkExtension.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		33F7C1622DD51529003FF92B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -112,7 +62,6 @@
 			isa = PBXGroup;
 			children = (
 				33F7C1672DD51529003FF92B /* Protokolle */,
-				333D915C2DE3112D0034FD73 /* ProtokolleTunnel */,
 				339C38B42DD544D700545BF4 /* Frameworks */,
 				33F7C1662DD51529003FF92B /* Products */,
 			);
@@ -122,7 +71,6 @@
 			isa = PBXGroup;
 			children = (
 				33F7C1652DD51529003FF92B /* Protokolle.app */,
-				333D915A2DE3112D0034FD73 /* ProtokolleTunnel.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -130,28 +78,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		333D91592DE3112D0034FD73 /* ProtokolleTunnel */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 333D91642DE3112D0034FD73 /* Build configuration list for PBXNativeTarget "ProtokolleTunnel" */;
-			buildPhases = (
-				333D91562DE3112D0034FD73 /* Sources */,
-				333D91572DE3112D0034FD73 /* Frameworks */,
-				333D91582DE3112D0034FD73 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				333D915C2DE3112D0034FD73 /* ProtokolleTunnel */,
-			);
-			name = ProtokolleTunnel;
-			packageProductDependencies = (
-			);
-			productName = ProtokolleTunnel;
-			productReference = 333D915A2DE3112D0034FD73 /* ProtokolleTunnel.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		33F7C1642DD51529003FF92B /* Protokolle */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 33F7C1782DD5152C003FF92B /* Build configuration list for PBXNativeTarget "Protokolle" */;
@@ -160,13 +86,11 @@
 				33F7C1622DD51529003FF92B /* Frameworks */,
 				33F7C1632DD51529003FF92B /* Resources */,
 				33F7FBC32DE0383A003FF92B /* Copy Acknowledgements */,
-				33898B452DE292F40080DC91 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				33350AEE2DE039420093599B /* PBXTargetDependency */,
-				333D91622DE3112D0034FD73 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				33F7C1672DD51529003FF92B /* Protokolle */,
@@ -189,9 +113,6 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
-					333D91592DE3112D0034FD73 = {
-						CreatedOnToolsVersion = 16.2;
-					};
 					33F7C1642DD51529003FF92B = {
 						CreatedOnToolsVersion = 16.2;
 						LastSwiftMigration = 1620;
@@ -217,19 +138,11 @@
 			projectRoot = "";
 			targets = (
 				33F7C1642DD51529003FF92B /* Protokolle */,
-				333D91592DE3112D0034FD73 /* ProtokolleTunnel */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		333D91582DE3112D0034FD73 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		33F7C1632DD51529003FF92B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -257,13 +170,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		333D91562DE3112D0034FD73 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		33F7C1612DD51529003FF92B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -277,11 +183,6 @@
 		33350AEE2DE039420093599B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = 33350AED2DE039420093599B /* LicensePlistBuildTool */;
-		};
-		333D91622DE3112D0034FD73 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 333D91592DE3112D0034FD73 /* ProtokolleTunnel */;
-			targetProxy = 333D91612DE3112D0034FD73 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -389,93 +290,6 @@
 			};
 			name = "Release-distribution";
 		};
-		332B4C3F2DE3B9FE00026689 /* Release-distribution */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = ProtokolleTunnel/ProtokolleTunnel.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 95J8WZ4TN8;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ProtokolleTunnel/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ProtokolleTunnel;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = thewonderofyou.syslog.ProtokolleTunnel;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = "Release-distribution";
-		};
-		333D91652DE3112D0034FD73 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = ProtokolleTunnel/ProtokolleTunnel.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 95J8WZ4TN8;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ProtokolleTunnel/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ProtokolleTunnel;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = thewonderofyou.syslog.ProtokolleTunnel;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		333D91662DE3112D0034FD73 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = ProtokolleTunnel/ProtokolleTunnel.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 95J8WZ4TN8;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ProtokolleTunnel/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ProtokolleTunnel;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = thewonderofyou.syslog.ProtokolleTunnel;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		3384ECDE2DE6810200C05A84 /* Debug-distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -581,35 +395,6 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Protokolle/Supporting Files/syslog-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = "Debug-distribution";
-		};
-		3384ECE02DE6810200C05A84 /* Debug-distribution */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = ProtokolleTunnel/ProtokolleTunnel.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 95J8WZ4TN8;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ProtokolleTunnel/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = ProtokolleTunnel;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = thewonderofyou.syslog.ProtokolleTunnel;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -830,17 +615,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		333D91642DE3112D0034FD73 /* Build configuration list for PBXNativeTarget "ProtokolleTunnel" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				333D91652DE3112D0034FD73 /* Debug */,
-				3384ECE02DE6810200C05A84 /* Debug-distribution */,
-				333D91662DE3112D0034FD73 /* Release */,
-				332B4C3F2DE3B9FE00026689 /* Release-distribution */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		33F7C1602DD51529003FF92B /* Build configuration list for PBXProject "Protokolle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
