@@ -77,7 +77,6 @@ Using the makefile will automatically create an adhoc ipa inside the packages di
 - [Samara](https://github.com/khcrysalis) - The maker
 - [Antoine](https://github.com/NSAntoine/Antoine) - Code for filtering, refresh, and the sole reason why I even made this.
 - [idevice](https://github.com/jkcoxson/idevice) - Backend functionality, uses `os_trace_relay` to retrieve messages.
-- [Stossy11](https://github.com/stossy11/) - [StosVPN](https://github.com/SideStore/StosVPN) tunnel code, very appreciated.
 
 ## License 
 

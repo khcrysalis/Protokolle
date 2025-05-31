@@ -24,6 +24,17 @@
         }
       }
     },
+    "💚 This couldn't of been done without my sponsors!" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "💚 This couldn't of been done without my sponsors!"
+          }
+        }
+      }
+    },
     "About %@" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -133,6 +144,9 @@
           }
         }
       }
+    },
+    "Credits" : {
+
     },
     "Date" : {
       "extractionState" : "manual",
@@ -559,6 +573,9 @@
           }
         }
       }
+    },
+    "Sponsors" : {
+
     },
     "Start Streaming" : {
       "extractionState" : "manual",
