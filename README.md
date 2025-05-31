@@ -18,12 +18,13 @@ The iOS/iPadOS equivalent to macOS's `Console.app`. This app uses [idevice](http
 - Advanced filtering options for log types, keywords, and process ID's.
 - Performance options for logs, to prevent any excessive ram usage, and general usability of the app.
 - Ability to import/export logs to be viewed later.
-- Built-in tunnel VPN for making usage easier.
 - Of course, open source and free.
 
 ## Download
 
-Visit [releases](https://github.com/khcrysalis/Protokolle/releases) and get the latest `.ipa`.
+<a href="https://apps.apple.com/us/app/example-app/id123456789" target="_blank" rel="noopener noreferrer">
+    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" style="width: 200px; height: auto;">
+</a>
 
 ## How does it work?
 - Establish a heartbeat with a TCP provider (the app will need this for later).
