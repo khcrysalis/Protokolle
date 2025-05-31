@@ -62,6 +62,13 @@ Due to how it works right now we need both a VPN and a lockdownd pairing file, t
 
 Using the makefile will automatically create an adhoc ipa inside the packages directory, using this to debug or report issues is not recommend. When making a pull request or reporting issues, it's generally advised you've used Xcode to debug your changes properly.
 
+## Sponsors
+
+| Thanks to all my [sponsors](https://github.com/sponsors/khcrysalis)!! |
+|:-:|
+| <img src="https://raw.githubusercontent.com/khcrysalis/github-sponsor-graph/main/graph.png"> |
+| _**"samara is cute" - Vendicated**_ |
+
 ## Star History
 
 <a href="https://star-history.com/#khcrysalis/protokolle&Date">
