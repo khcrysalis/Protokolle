@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		3349EAD22DF04CC100E317ED /* IDeviceSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3349EAD12DF04CC100E317ED /* IDeviceSwift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		33898B372DE292F40080DC91 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		339C38B52DD544D800545BF4 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -38,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3349EAD22DF04CC100E317ED /* IDeviceSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +97,7 @@
 			);
 			name = Protokolle;
 			packageProductDependencies = (
+				3349EAD12DF04CC100E317ED /* IDeviceSwift */,
 			);
 			productName = syslog;
 			productReference = 33F7C1652DD51529003FF92B /* Protokolle.app */;
@@ -124,6 +130,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				33350A662DE037F70093599B /* XCRemoteSwiftPackageReference "LicensePlist" */,
+				3349EAD02DF04CC100E317ED /* XCLocalSwiftPackageReference "IDeviceKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 33F7C1662DD51529003FF92B /* Products */;
@@ -632,6 +639,13 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		3349EAD02DF04CC100E317ED /* XCLocalSwiftPackageReference "IDeviceKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = IDeviceKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCRemoteSwiftPackageReference section */
 		33350A662DE037F70093599B /* XCRemoteSwiftPackageReference "LicensePlist" */ = {
 			isa = XCRemoteSwiftPackageReference;
@@ -648,6 +662,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 33350A662DE037F70093599B /* XCRemoteSwiftPackageReference "LicensePlist" */;
 			productName = "plugin:LicensePlistBuildTool";
+		};
+		3349EAD12DF04CC100E317ED /* IDeviceSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = IDeviceSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

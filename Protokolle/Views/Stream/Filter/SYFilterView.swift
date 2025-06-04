@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import IDeviceSwift
 
 // MARK: - View
 struct SYFilterView: View {

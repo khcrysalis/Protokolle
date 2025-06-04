@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftUI
+import IDeviceSwift
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	var currentScene: UIScene?

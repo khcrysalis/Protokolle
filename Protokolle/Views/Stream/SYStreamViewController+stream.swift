@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit.UIApplication
+import IDeviceSwift
 
 // MARK: - Class extension: Stream stuff
 extension SYStreamViewController {

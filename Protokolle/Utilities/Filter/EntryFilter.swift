@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import IDeviceSwift
 
 /// A Structure defining the filters that can be used to filter out unwanted entries by the user
 struct EntryFilter: Codable, Hashable {

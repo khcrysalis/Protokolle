@@ -13,4 +13,7 @@
    <FileRef
       location = "container:Protokolle.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "container:IDeviceKit">
+   </FileRef>
 </Workspace>

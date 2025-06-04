@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import IDeviceSwift
 
 // MARK: - Class extension: Unique Item
 extension SYStreamDetailViewController {

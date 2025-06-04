@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import IDeviceSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

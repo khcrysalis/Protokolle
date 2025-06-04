@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import IDeviceSwift
 
 // MARK: - Class
 class SYStreamCollectionViewCell: UICollectionViewCell {

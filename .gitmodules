@@ -1,0 +1,3 @@
+[submodule "IDeviceKit"]
+	path = IDeviceKit
+	url = https://github.com/khcrysalis/IDeviceKit

@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftUI
+import IDeviceSwift
 
 // MARK: - Class
 class SYStreamViewController: UICollectionViewController {
@@ -173,6 +174,13 @@ class SYStreamViewController: UICollectionViewController {
 				)
 			}
 		}
+		
+		NotificationCenter.default.addObserver(
+			self,
+			selector: #selector(showInvalidAlert),
+			name: .heartbeatInvalidHost,
+			object: nil
+		)
 	}
 	
 	// MARK: Actions
@@ -194,6 +202,15 @@ class SYStreamViewController: UICollectionViewController {
 		)
 		downButton.isEnabled = false
 		automaticallyScrollToBottom = true
+	}
+	
+	@objc func showInvalidAlert() {
+		DispatchQueue.main.async {
+			UIAlertController.showAlertWithOk(
+				title: "InvalidHostID",
+				message: .localized("Your pairing file is invalid and is incompatible with your device, please import a valid pairing file.")
+			)
+		}
 	}
 }
 

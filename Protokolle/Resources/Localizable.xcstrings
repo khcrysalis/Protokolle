@@ -146,7 +146,14 @@
       }
     },
     "Credits" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Credits"
+          }
+        }
+      }
     },
     "Date" : {
       "extractionState" : "manual",
@@ -575,7 +582,14 @@
       }
     },
     "Sponsors" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sponsors"
+          }
+        }
+      }
     },
     "Start Streaming" : {
       "extractionState" : "manual",
@@ -783,6 +797,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You've reached the threshold"
+          }
+        }
+      }
+    },
+    "Your pairing file is invalid and is incompatible with your device, please import a valid pairing file." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your pairing file is invalid and is incompatible with your device, please import a valid pairing file."
           }
         }
       }

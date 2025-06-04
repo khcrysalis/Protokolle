@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import IDeviceSwift
 
 class SYStreamDetailHeaderView: UIView {
 	let padding: CGFloat = 20
