@@ -42,7 +42,7 @@ struct SYAboutView: View {
 			.frame(maxWidth: .infinity)
 			.listRowBackground(EmptyView())
 			
-			Section("Credits") {
+			Section(.localized("Credits")) {
 				if !_credits.isEmpty {
 					ForEach(_credits, id: \.github) { credit in
 						_credit(name: credit.name, desc: credit.desc, github: credit.github)
@@ -51,7 +51,7 @@ struct SYAboutView: View {
 				}
 			}
 			
-			Section("Sponsors") {
+			Section(.localized("Sponsors")) {
 				if !_donators.isEmpty {
 					Group {
 						Text(try! AttributedString(markdown: _donators.map {

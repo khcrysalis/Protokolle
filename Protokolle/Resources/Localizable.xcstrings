@@ -146,6 +146,7 @@
       }
     },
     "Credits" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -582,6 +583,7 @@
       }
     },
     "Sponsors" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
