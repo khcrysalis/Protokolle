@@ -129,6 +129,7 @@ extension SYAboutView {
 					.font(.subheadline)
 					.foregroundColor(.secondary)
 			}
+			.padding(.vertical, 2)
 		}
 	}
 }

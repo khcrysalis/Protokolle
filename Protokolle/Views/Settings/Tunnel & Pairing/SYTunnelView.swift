@@ -58,6 +58,7 @@ struct SYTunnelView: View {
 					doesHavePairingFile = true
 				}
 			)
+			.ignoresSafeArea()
 		}
 		.onAppear {
 			doesHavePairingFile = FileManager.default.fileExists(atPath: HeartbeatManager.pairingFile())
