@@ -195,6 +195,7 @@ class SYStreamViewController: UICollectionViewController {
 	}
 	
 	@objc func scrollAllTheWayDown() {
+		let generator = UIImpactFeedbackGenerator(style: .light)
 		collectionView.scrollToItem(
 			at: IndexPath(row: dataSource.snapshot().numberOfItems - 1, section: 0),
 			at: .bottom,
@@ -202,6 +203,7 @@ class SYStreamViewController: UICollectionViewController {
 		)
 		downButton.isEnabled = false
 		automaticallyScrollToBottom = true
+		generator.impactOccurred()
 	}
 	
 	@objc func showInvalidAlert() {

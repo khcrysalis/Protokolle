@@ -20,49 +20,51 @@ struct SYAboutView: View {
 	
     var body: some View {
 		Form {
-			Section {
-				VStack {
-					Image(uiImage: (UIImage(named: Bundle.main.iconFileName ?? ""))! )
-						.appIconStyle(size: 72)
-					
-					Text(Bundle.main.name)
-						.font(.largeTitle)
-						.bold()
-						.foregroundStyle(.tint)
-					
-					HStack(spacing: 4) {
-						Text(.localized("Version"))
-						Text(Bundle.main.version)
-					}
-					.font(.footnote)
-					.foregroundStyle(.secondary)
-					
-				}
-			}
-			.frame(maxWidth: .infinity)
-			.listRowBackground(EmptyView())
-			
-			Section(.localized("Credits")) {
-				if !_credits.isEmpty {
-					ForEach(_credits, id: \.github) { credit in
-						_credit(name: credit.name, desc: credit.desc, github: credit.github)
-					}
-					.transition(.slide)
-				}
-			}
-			
-			Section(.localized("Sponsors")) {
-				if !_donators.isEmpty {
-					Group {
-						Text(try! AttributedString(markdown: _donators.map {
-							"[\($0.name ?? $0.github)](https://github.com/\($0.github))"
-						}.joined(separator: ", ")))
+			if !isLoading {
+				Section {
+					VStack {
+						Image(uiImage: (UIImage(named: Bundle.main.iconFileName ?? ""))! )
+							.appIconStyle(size: 72)
 						
-						Text(.localized("💚 This couldn't of been done without my sponsors!"))
-							.foregroundStyle(.secondary)
-							.padding(.vertical, 2)
+						Text(Bundle.main.name)
+							.font(.largeTitle)
+							.bold()
+							.foregroundStyle(.tint)
+						
+						HStack(spacing: 4) {
+							Text(.localized("Version"))
+							Text(Bundle.main.version)
+						}
+						.font(.footnote)
+						.foregroundStyle(.secondary)
+						
 					}
-					.transition(.slide)
+				}
+				.frame(maxWidth: .infinity)
+				.listRowBackground(EmptyView())
+				
+				Section(.localized("Credits")) {
+					if !_credits.isEmpty {
+						ForEach(_credits, id: \.github) { credit in
+							_credit(name: credit.name, desc: credit.desc, github: credit.github)
+						}
+						.transition(.slide)
+					}
+				}
+				
+				Section(.localized("Sponsors")) {
+					if !_donators.isEmpty {
+						Group {
+							Text(try! AttributedString(markdown: _donators.map {
+								"[\($0.name ?? $0.github)](https://github.com/\($0.github))"
+							}.joined(separator: ", ")))
+							
+							Text(.localized("💚 This couldn't of been done without my sponsors!"))
+								.foregroundStyle(.secondary)
+								.padding(.vertical, 2)
+						}
+						.transition(.slide)
+					}
 				}
 			}
 		}
