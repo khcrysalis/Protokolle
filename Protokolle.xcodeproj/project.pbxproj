@@ -278,7 +278,7 @@
 					"$(PROJECT_DIR)/syslog/Resources/idevice",
 					"$(PROJECT_DIR)/Protokolle/Resources/idevice",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = thewonderofyou.syslog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -388,7 +388,7 @@
 					"$(PROJECT_DIR)/syslog/Resources/idevice",
 					"$(PROJECT_DIR)/Protokolle/Resources/idevice",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = thewonderofyou.syslog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -435,7 +435,7 @@
 					"$(PROJECT_DIR)/syslog/Resources/idevice",
 					"$(PROJECT_DIR)/Protokolle/Resources/idevice",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = thewonderofyou.syslog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -482,7 +482,7 @@
 					"$(PROJECT_DIR)/syslog/Resources/idevice",
 					"$(PROJECT_DIR)/Protokolle/Resources/idevice",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = thewonderofyou.syslog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
