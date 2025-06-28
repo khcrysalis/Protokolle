@@ -22,7 +22,7 @@ The iOS/iPadOS equivalent to macOS's `Console.app`. This app uses [idevice](http
 
 ## Download
 
-<a href="https://apps.apple.com/us/app/example-app/id123456789" target="_blank" rel="noopener noreferrer">
+<a href="https://apps.apple.com/us/app/protokolle/id6746388316" target="_blank" rel="noopener noreferrer">
     <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" style="width: 200px; height: auto;">
 </a>
 
